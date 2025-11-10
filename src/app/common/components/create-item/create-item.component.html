@@ -1,0 +1,21 @@
+<!-- <div class="customer-list-container"> -->
+    <div class="customer-list-title" mat-dialog-title>
+        <h5>Create Item</h5>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="itemForm">
+            <div class="customer-body">
+                <app-input [placeholder]="'Name'" formControlName="name"></app-input>
+                <app-input [placeholder]="'Price'" formControlName="price"></app-input>
+            </div>
+        </form>
+    </mat-dialog-content>
+<!-- </div> -->
+
+<mat-dialog-actions align="end">
+    <div class="footer-buttons">
+        <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
+        <app-button [title]="'Create'" (click)="create()"></app-button> 
+    </div>
+ </mat-dialog-actions>

@@ -1,0 +1,26 @@
+<table>
+    <thead>
+        <th *ngFor="let header of headers" [class.text-right]="header.align">
+            @if (header.label === 'Checkbox') {
+
+            } @else {
+                {{ header.label }}
+            }
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of data">
+            <td *ngFor="let header of headers" (click)="rowSelected(data)" [class.text-right]="header.align">
+                @if (header.key === 'checkbox') {
+                    <input type="checkbox" [(ngModel)]="data[header.key]" (ngModelChange)="itemSelected()">
+                } @else if (header.key === 'quantity') {
+                    <app-input [placeholder]="'Qty'" [(ngModel)]="data[header.key]"></app-input>
+                } @else if (header.isCurrency) {
+                    {{ data[header.key] | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else {
+                    {{ data[header.key] }}
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>

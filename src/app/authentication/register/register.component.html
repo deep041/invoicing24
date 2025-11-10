@@ -1,0 +1,16 @@
+<div class="login-container">
+    <form [formGroup]="registrationForm">
+        <div class="login-box">
+            <h2>Register</h2>
+    
+            <app-input formControlName="firstName" [placeholder]="'Enter your First Name'" />
+            <app-input formControlName="lastName" [placeholder]="'Enter your Last Name'" />
+            <app-input formControlName="email" [placeholder]="'Enter your Email ID'" />
+            <app-input formControlName="password" [placeholder]="'Enter your Password'" />
+        
+            <app-button [title]="'Register'" (click)="register()"></app-button>
+    
+            <span class="last-text">Already here? <span class="redirection" (click)="redirect('authentication/login')">Login</span></span>
+        </div>
+    </form>
+</div>

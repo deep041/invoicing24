@@ -1,0 +1,11 @@
+<div class="items-container">
+    <div class="title-row">
+        <h2>Items</h2>
+
+        <app-button [title]="'Create Item'" (click)="createItem()"></app-button>
+    </div>
+
+    <div class="customer-list">
+        <app-table *ngIf="itemData" [headers]="headers" [data]="itemData"></app-table>
+    </div>
+</div>

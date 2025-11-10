@@ -1,0 +1,22 @@
+<!-- <div class="customer-list-container"> -->
+    <div class="customer-list-title" mat-dialog-title>
+        <h5>Create Customer</h5>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="customerForm">
+            <div class="customer-body">
+                <app-input [title]="'Name'" [placeholder]="'Name'" formControlName="name"></app-input>
+                <app-input [title]="'Contact No.'" [placeholder]="'Contact No.'" formControlName="contactNo"></app-input>
+                <app-textarea [title]="'Address'" [placeholder]="'Address'" formControlName="address"></app-textarea>
+            </div>
+        </form>
+    </mat-dialog-content>
+<!-- </div> -->
+
+<mat-dialog-actions align="end">
+    <div class="footer-buttons">
+        <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
+        <app-button [title]="'Create'" (click)="create()"></app-button> 
+    </div>
+ </mat-dialog-actions>

@@ -1,0 +1,24 @@
+.customer-list-title {
+    border-bottom: 1px solid;
+    padding: 10px;
+}
+
+.customer-list-title h5 {
+    margin: 0;
+}
+
+.customer-list-body {
+    // padding: 10px;
+}
+
+.customer-body {
+    // padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-buttons {
+    display: flex;
+    gap: 10px;
+}

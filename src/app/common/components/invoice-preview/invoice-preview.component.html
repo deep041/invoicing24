@@ -1,0 +1,38 @@
+<mat-dialog-content class="mat-typography">
+    <div class="invoice-preview-container" id="print-section">
+        <div class="invoice-preview-title">
+            <h2>Invoice</h2>
+            <div class="invoice-number"> Invoice No: <b>#001</b></div>
+        </div>
+    
+        <div class="invoice-bill-details">
+            <div class="bill-to">
+                <h3>Bill To:</h3>
+                <p class="name">{{ customerDetails.name }}</p>
+                <p class="details">{{ customerDetails.contactNo }}</p>
+                <p class="details">{{ customerDetails.address }}</p>
+            </div>
+    
+            <div class="bill-from">
+                <h3>From:</h3>
+                <p class="name">Chintan Patel</p>
+                <p class="details">7984743695</p>
+                <p class="details">Mahalaxmi Society, Rupal</p>
+            </div>
+        </div>
+    
+        <div class="invoice-date">Date: <b>{{ date | date: 'dd MMMM y' }}</b></div>
+    
+        <div class="invoice-items">
+            <app-table *ngIf="items" [headers]="headers" [data]="items"></app-table>
+            <div class="invoice-total">Total: <b>{{ subtotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</b></div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div class="footer-button-container">
+        <app-button [title]="'Print'" [style]="'style2'" (click)="print()"></app-button>
+        <app-button [title]="'Close'" (click)="close()"></app-button>
+    </div>
+</mat-dialog-actions>

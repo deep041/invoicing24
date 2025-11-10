@@ -1,0 +1,28 @@
+<div class="invoice-container">
+    <div class="title-row">
+        <h2>Create Invoice</h2>
+    </div>
+
+    <div class="invoice-data">
+        <div class="data">
+            <div class="title">Customer</div>
+            <div class="value" *ngIf="!selectedCustomer" (click)="selectCustomer()">Select Customer</div>
+            <div class="value" *ngIf="selectedCustomer"><b>{{ selectedCustomer.name }}</b></div>
+            <div class="value" *ngIf="selectedCustomer">{{ selectedCustomer.contactNo }}</div>
+            <div class="value" *ngIf="selectedCustomer">{{ selectedCustomer.address }}</div>
+        </div>
+
+        <div class="data items">
+            <div class="title">Items</div>
+            <div class="value" *ngIf="!selectedItems" (click)="selectItems()">Select Items</div>
+            <div *ngIf="selectedItems">
+                <app-table [headers]="headers" [data]="selectedItems"></app-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-button-container">
+        <app-button [title]="'Preview'" [style]="'style2'" (click)="preview()" [disabled]="!selectedCustomer || !selectedItems"></app-button>
+        <app-button [title]="'Generate'" (click)="generate()" [disabled]="!selectedCustomer || !selectedItems"></app-button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<!-- <div class="items-list-container"> -->
+    <div class="items-list-title" mat-dialog-title>
+        <h3>Items List</h3>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+        <div class="items-list-body">
+            <app-table *ngIf="items" [headers]="headers" [data]="items" (selectedItems)="selectItems($event)"></app-table>
+        </div>
+    </mat-dialog-content>
+
+<!-- </div> -->
+<mat-dialog-actions align="end">
+   <app-button [title]="'Select'" (click)="select()"></app-button> 
+</mat-dialog-actions>

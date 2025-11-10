@@ -1,0 +1,22 @@
+<div class="navigation-container">
+    <div class="logo">
+        Invoicing24
+    </div>
+
+    <div class="nav-links">
+        <div class="nav-link" [routerLink]="['/dashboard']" [class.active]="isActive(['/dashboard'])">Home</div>
+        <div class="nav-link" [routerLink]="['/invoices']" [class.active]="isActive(['/invoices', '/create-invoice'])">Invoices</div>
+        <div class="nav-link" [routerLink]="['/customers']" [class.active]="isActive(['/customers'])">Customers</div>
+        <div class="nav-link" [routerLink]="['/items']" [class.active]="isActive(['/items'])">Items</div>
+    </div>
+
+    <div class="nav-footer">
+        <div class="nav-footer-container">
+            <div class="user-name-info">
+                <div class="user-logo">{{ dataService.getLocalStorage('name')[0] }}</div>
+                <div class="user-name">{{ dataService.getLocalStorage('name') }}</div> 
+            </div>
+            <mat-icon>logout</mat-icon>
+        </div>
+    </div>
+</div>

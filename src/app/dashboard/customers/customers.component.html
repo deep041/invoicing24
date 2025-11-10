@@ -1,0 +1,11 @@
+<div class="customers-container">
+    <div class="title-row">
+        <h2>Customers</h2>
+
+        <app-button [title]="'Create Customer'" (click)="createCustomer()"></app-button>
+    </div>
+
+    <div class="customer-list">
+        <app-table *ngIf="customerData" [headers]="headers" [data]="customerData"></app-table>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="invoice-container">
+    <div class="title-row">
+        <h2>Invoices</h2>
+        <app-button [title]="'Create Invoice'" [routerLink]="'/create-invoice'"></app-button>
+    </div>
+
+    <div class="customer-list">
+        <app-table [headers]="headers" [data]="[
+            { number: '001', date: '8th November 2025', customer: 'Deep Patel', total: 1000 },
+            { number: '002', date: '9th November 2025', customer: 'Chintan Patel', total: 2500 }
+        ]"></app-table>
+    </div>
+</div>
