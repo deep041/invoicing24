@@ -1,0 +1,15 @@
+<div class="invoice-container">
+    <div class="title-row">
+        <h2>Company Details</h2>
+    </div>
+
+    <form class="company-details-form" [formGroup]="companyDetailsForm">
+        <app-input [placeholder]="'Name'" formControlName="name"></app-input>
+        <app-input [placeholder]="'Contact No.'" formControlName="contactNo"></app-input>
+        <app-textarea [placeholder]="'Address'" formControlName="address"></app-textarea>
+    </form>
+
+    <div class="footer-button-container">
+        <app-button [title]="'Save'" (click)="save()"></app-button>
+    </div>
+</div>
