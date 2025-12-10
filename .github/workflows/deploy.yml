@@ -1,44 +1,62 @@
-name: CI/CD Deploy
+name: CI/CD Deploy Angular to VPS
 
 on:
   push:
     branches:
-      - production
+      - production  # deploy on push to main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Node
+      # 2️⃣ Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Clean old dist (optional but safe)
+      - name: Clean old build
+        run: rm -rf dist/*
+
+      # 4️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build app
-        run: npm run build --if-present
+      # 5️⃣ Build Angular app
+      - name: Build Angular app
+        run: npm run build --prod
 
-      - name: Copy files to VPS
+      # 6️⃣ Debug dist folder (optional, can remove later)
+      - name: Show dist folder
+        run: ls -R dist
+
+      # 7️⃣ Copy built files to VPS
+      - name: Copy built files to VPS
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/invoicing/browser/*"
+          port: ${{ secrets.SSH_PORT }}
+          source: "dist/**/browser/**"
           target: "/var/www/myapp/"
 
+      # 8️⃣ SSH into VPS and restart Nginx
       - name: SSH & restart server
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.6.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
+            echo "Deploying Angular app..."
             cd /var/www/myapp
             sudo systemctl restart nginx
+            echo "Deployment complete!"
