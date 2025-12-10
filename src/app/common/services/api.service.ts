@@ -35,4 +35,12 @@ export class ApiService {
         return this.http.get<any>(`${environment.apiUrl}item`);
     }
 
+    addCompanyDetails(payload: any) {
+        return this.http.post<any>(`${environment.apiUrl}company-details`, payload);
+    }
+
+    getCompanyDetails() {
+        return this.http.get<any>(`${environment.apiUrl}company-details`);
+    }
+
 }
