@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 
 export class ItemsComponent implements OnInit {
 
-    headers = [{ label: 'Name', key: 'name' }, { label: 'Category', key: 'category' }, { label: 'Status', key: 'status' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }];
+    headers = [{ label: 'Name', key: 'name' }, { label: 'Status', key: 'status', isStatus: true }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }];
     itemData: any[] = [];
 
     constructor(private dialog: MatDialog, private apiService: ApiService) {}

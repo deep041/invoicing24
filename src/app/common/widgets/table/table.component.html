@@ -13,10 +13,14 @@
             <td *ngFor="let header of headers" (click)="rowSelected(data)" [class.text-right]="header.align">
                 @if (header.key === 'checkbox') {
                     <input type="checkbox" [(ngModel)]="data[header.key]" (ngModelChange)="itemSelected()">
-                } @else if (header.key === 'quantity') {
-                    <app-input [placeholder]="'Qty'" [(ngModel)]="data[header.key]"></app-input>
+                } @else if (header.isNumberInput) {
+                    <app-input [placeholder]="header.placeholder" [(ngModel)]="data[header.key]"></app-input>
                 } @else if (header.isCurrency) {
                     {{ data[header.key] | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else if (header.isDate) {
+                    {{ data[header.key] | date: 'dd MMMM YYYY' }}
+                } @else if (header.isStatus) {
+                    <div [ngClass]="{ 'active-status': (data[header.key] === 'active'), 'inactive-status': (data[header.key] === 'inactive') }">{{ data[header.key] }}</div>
                 } @else {
                     {{ data[header.key] }}
                 }

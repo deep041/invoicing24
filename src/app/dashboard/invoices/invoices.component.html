@@ -5,9 +5,6 @@
     </div>
 
     <div class="customer-list">
-        <app-table [headers]="headers" [data]="[
-            { number: '001', date: '8th November 2025', customer: 'Deep Patel', total: 1000 },
-            { number: '002', date: '9th November 2025', customer: 'Chintan Patel', total: 2500 }
-        ]"></app-table>
+        <app-table [headers]="headers" [data]="invoices"></app-table>
     </div>
 </div>

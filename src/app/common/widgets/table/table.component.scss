@@ -30,3 +30,20 @@ tr:nth-child(even) {
 .text-right {
     text-align: right;
 }
+
+.active-status {
+    width: fit-content;
+    padding: 5px;
+    text-transform: capitalize;
+    border-radius: 5px;
+}
+
+.active-status {
+    background-color: #00800020;
+    color: #008000;
+}
+
+.inactive-status {
+    background-color: #ff000020;
+    color: #ff0000;
+}
