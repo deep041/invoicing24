@@ -9,16 +9,32 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let data of data">
-            <td *ngFor="let header of headers" (click)="rowSelected(data)" [class.text-right]="header.align">
+        <tr *ngFor="let rowData of data; let i = index;">
+            <td *ngFor="let header of headers" (click)="rowSelected(rowData)" [class.text-right]="header.align" [style.width]="header.width ? header.width : 'auto'">
                 @if (header.key === 'checkbox') {
-                    <input type="checkbox" [(ngModel)]="data[header.key]" (ngModelChange)="itemSelected()">
-                } @else if (header.key === 'quantity') {
-                    <app-input [placeholder]="'Qty'" [(ngModel)]="data[header.key]"></app-input>
+                    <input type="checkbox" [(ngModel)]="rowData[header.key]" (ngModelChange)="itemSelected()">
+                } @else if (header.isNumberInput) {
+                    <app-input [placeholder]="header.placeholder" [type]="header.type" [(ngModel)]="rowData[header.key]" [max]="(rowData.discountType === 'percentage') ? 100 : null"></app-input>
                 } @else if (header.isCurrency) {
-                    {{ data[header.key] | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                    {{ rowData[header.key] | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else if (header.isDate) {
+                    {{ rowData[header.key] | date: 'dd MMMM YYYY' }}
+                } @else if (header.isStatus) {
+                    <div [ngClass]="{ 'active-status': (rowData[header.key] === 'active'), 'inactive-status': (rowData[header.key] === 'inactive') }">{{ rowData[header.key] }}</div>
+                } @else if (header.isRadioButton) {
+                    <app-radio [options]="header.options" [(ngModel)]="rowData[header.key]" [name]="rowData[header.key] + i"></app-radio>
+                } @else if (header.isInvoiceTotal) {
+                    {{ ((rowData[header.calculationLeftSideKey] * rowData[header.calculationRightSideKey]) - (rowData.discountType ? ((rowData.discountType === 'fixed') ? rowData.discount : ((rowData[header.calculationLeftSideKey] * rowData[header.calculationRightSideKey]) * (rowData.discount / 100))) : 0)) | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else if (header.isMultiplication) {
+                    {{ (rowData[header.calculationLeftSideKey] * rowData[header.calculationRightSideKey]) | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else if (header.isDiscountAmount) {
+                    {{ (rowData.discountType ? ((rowData.discountType === 'fixed') ? rowData.discount : ((rowData.quantity * rowData.price) * (rowData.discount / 100))) : 0) | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+                } @else if (header.isEdit) {
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit" (click)="edit.emit(rowData)"></mat-icon>
+                } @else if (header.isViewIcon) {
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="visibility" (click)="view.emit(rowData)"></mat-icon>
                 } @else {
-                    {{ data[header.key] }}
+                    {{ rowData[header.key] }}
                 }
             </td>
         </tr>

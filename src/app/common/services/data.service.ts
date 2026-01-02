@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class DataService {
+
+    isShowLoader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    discountType: { label: string, value: string }[] = [{ label: 'Fixed', value: 'fixed' }, { label: 'Percentage', value: 'percentage' }];
 
     constructor() { }
 

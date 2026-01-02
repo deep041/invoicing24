@@ -4,11 +4,26 @@
     </div>
 
     <div class="nav-links">
-        <div class="nav-link" [routerLink]="['/dashboard']" [class.active]="isActive(['/dashboard'])">Home</div>
-        <div class="nav-link" [routerLink]="['/invoices']" [class.active]="isActive(['/invoices', '/create-invoice'])">Invoices</div>
-        <div class="nav-link" [routerLink]="['/customers']" [class.active]="isActive(['/customers'])">Customers</div>
-        <div class="nav-link" [routerLink]="['/items']" [class.active]="isActive(['/items'])">Items</div>
-        <div class="nav-link" [routerLink]="['/company-details']" [class.active]="isActive(['/company-details'])">Company Details</div>
+        <div class="nav-link" [routerLink]="['/dashboard']" [class.active]="isActive(['/dashboard'])">
+            <mat-icon>home</mat-icon>
+            Home
+        </div>
+        <div class="nav-link" [routerLink]="['/invoices']" [class.active]="isActive(['/invoices', '/create-invoice'])">
+            <mat-icon>notes</mat-icon>
+            Invoices
+        </div>
+        <div class="nav-link" [routerLink]="['/customers']" [class.active]="isActive(['/customers'])">
+            <mat-icon>account_box</mat-icon>
+            Customers
+        </div>
+        <div class="nav-link" [routerLink]="['/items']" [class.active]="isActive(['/items'])">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Items
+        </div>
+        <div class="nav-link" [routerLink]="['/company-details']" [class.active]="isActive(['/company-details'])">
+            <mat-icon>home</mat-icon>
+            Company Details
+        </div>
     </div>
 
     <div class="nav-footer">
@@ -17,7 +32,7 @@
                 <div class="user-logo">{{ dataService.getLocalStorage('name')[0] }}</div>
                 <div class="user-name">{{ dataService.getLocalStorage('name') }}</div> 
             </div>
-            <mat-icon>logout</mat-icon>
+            <mat-icon (click)="logout()">logout</mat-icon>
         </div>
     </div>
 </div>

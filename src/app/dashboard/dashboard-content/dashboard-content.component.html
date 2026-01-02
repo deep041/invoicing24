@@ -1,1 +1,67 @@
-<p>dashboard-content works!</p>
+<div class="invoice-container">
+    <div class="title-row">
+        <h2>Dashboard</h2>
+    </div>
+
+    <div class="dashboard-top-boxes">
+        <div class="dashboard-box">
+            <div>
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="notes"></mat-icon>
+            </div>
+            <div>
+                <div class="dashboard-box-title">
+                    Total Invoices
+                </div>
+                <div class="dashboard-box-count">
+                    100
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-box">
+            <div>
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="account_box"></mat-icon>
+            </div>
+            <div>
+                <div class="dashboard-box-title">
+                    Total Customers
+                </div>
+                <div class="dashboard-box-count">
+                    10
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-box">
+            <div>
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="add_shopping_cart"></mat-icon>
+            </div>
+            <div>
+                <div class="dashboard-box-title">
+                    Total Items
+                </div>
+                <div class="dashboard-box-count">
+                    25
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-box">
+            <div>
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="notes"></mat-icon>
+            </div>
+            <div>
+                <div class="dashboard-box-title">
+                    Total Invoices
+                </div>
+                <div class="dashboard-box-count">
+                    100
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="bar-chart">
+            <canvas baseChart [type]="barChartType" [data]="barChartData" [options]="barChartOptions">
+            </canvas>
+        </div>
+    </div>
+</div>

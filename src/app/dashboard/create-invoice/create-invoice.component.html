@@ -7,16 +7,34 @@
         <div class="data">
             <div class="title">Customer</div>
             <div class="value" *ngIf="!selectedCustomer" (click)="selectCustomer()">Select Customer</div>
-            <div class="value" *ngIf="selectedCustomer"><b>{{ selectedCustomer.name }}</b></div>
-            <div class="value" *ngIf="selectedCustomer">{{ selectedCustomer.contactNo }}</div>
-            <div class="value" *ngIf="selectedCustomer">{{ selectedCustomer.address }}</div>
+            <div class="value" *ngIf="selectedCustomer"><b> {{ selectedCustomer.name }}</b></div>
+            <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="phone"></mat-icon> {{ selectedCustomer.contactNo }}</div>
+            <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="location_on"></mat-icon> {{ selectedCustomer.address }}</div>
+            <div class="value" *ngIf="selectedCustomer && selectedCustomer.stateCode"><span>State: </span> {{ selectedCustomer.stateCode }}</div>
+            <div class="value" *ngIf="selectedCustomer && selectedCustomer.gstNo"><span>GST No.: </span> {{ selectedCustomer.gstNo }}</div>
         </div>
 
         <div class="data items">
             <div class="title">Items</div>
-            <div class="value" *ngIf="!selectedItems" (click)="selectItems()">Select Items</div>
-            <div *ngIf="selectedItems">
+            <div class="value" *ngIf="!selectedItems.length" (click)="selectItems()">Select Items</div>
+            <div *ngIf="selectedItems.length">
                 <app-table [headers]="headers" [data]="selectedItems"></app-table>
+            </div>
+        </div>
+
+        <div class="total-container" *ngIf="selectedItems.length">
+            <div class="total">
+                <span>Total:</span> {{ countTotal() | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
+            </div>
+            <div class="discount">
+                <span>Discount on total:</span>
+                <div class="discount-type">
+                    <app-radio [name]="'Discount on total'" [options]="discountOptions" [(ngModel)]="discountOnTotalType"></app-radio>
+                    <app-input [(ngModel)]="discountOnTotal" [type]="'number'" [max]="(discountOnTotalType === 'percentage') ? 100 : null"></app-input>
+                </div>
+            </div>
+            <div class="total">
+                <span>Grand Total:</span> {{ countTotalAfterDiscount() | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}
             </div>
         </div>
     </div>

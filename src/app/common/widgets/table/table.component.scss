@@ -8,7 +8,7 @@ th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #000080;
+    background-color: var(--primary-color);
     color: white;
     font-size: 14px;
 }
@@ -29,4 +29,25 @@ tr:nth-child(even) {
 
 .text-right {
     text-align: right;
+}
+
+.active-status {
+    width: fit-content;
+    padding: 5px;
+    text-transform: capitalize;
+    border-radius: 5px;
+}
+
+.active-status {
+    background-color: #00800020;
+    color: #008000;
+}
+
+.inactive-status {
+    background-color: #ff000020;
+    color: #ff0000;
+}
+
+.mat-icon {
+    cursor: pointer;
 }

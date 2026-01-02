@@ -1,1 +1,5 @@
+<app-toast></app-toast>
+<div class="loader-container" *ngIf="dataService.isShowLoader | async">
+    <div class="loader"></div>
+</div>
 <router-outlet />
