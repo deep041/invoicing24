@@ -64,4 +64,8 @@ export class ApiService {
         return this.http.get<any>(`${environment.apiUrl}invoice/${id}`);
     }
 
+    generateInvoiceNumber() {
+        return this.http.get<any>(`${environment.apiUrl}invoice/generate-invoice-number`);
+    }
+
 }

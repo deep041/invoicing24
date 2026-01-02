@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }
 
 .login-container .login-box {
@@ -13,7 +14,7 @@
     gap: 10px;
     padding: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    background-color: #FFF;
 }
 
 .login-container h2 {
@@ -28,4 +29,30 @@
 .login-container .last-text .redirection {
     color: var(--primary-color);
     cursor: pointer;
+}
+
+.login-form {
+    display: flex;
+    width: 60%;
+    margin: 0px auto;
+}
+
+.login-form .img-container {
+    background-color: #FFF;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.login-form .img-container img {
+    width: 80%;
+}
+
+.login-form .login-box {
+    flex: 1;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }

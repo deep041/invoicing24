@@ -15,10 +15,11 @@ import data from '../../../assets/data.json';
 import { RadioComponent } from "../../common/widgets/radio/radio.component";
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from "../../common/widgets/input/input.component";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-create-invoice',
-    imports: [CommonModule, TableComponent, ButtonComponent, RadioComponent, FormsModule, InputComponent],
+    imports: [CommonModule, TableComponent, ButtonComponent, RadioComponent, FormsModule, InputComponent, MatIconModule],
     templateUrl: './create-invoice.component.html',
     styleUrl: './create-invoice.component.scss'
 })
@@ -31,6 +32,7 @@ export class CreateInvoiceComponent implements OnInit {
     discountOptions = data.discountType;
     discountOnTotalType: 'percentage' | 'fixed' = 'fixed';
     discountOnTotal: number = 0;
+    invoiceNumber: number = 0;
     headers = [
         { label: 'Name', key: 'name' }, 
         { label: 'Price', key: 'price', align: 'right', isCurrency: true }, 
@@ -46,12 +48,21 @@ export class CreateInvoiceComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCompanyData();
+        this.generateInvoiceNumber();
     }
 
     getCompanyData() {
         this.apiService.getCompanyDetails().subscribe((res: any) => {
             if (res && res.success) {
                 this.companyDetails = res.data;
+            }
+        });
+    }
+
+    generateInvoiceNumber() {
+        this.apiService.generateInvoiceNumber().subscribe((res: any) => {
+            if (res && res.success) {
+                this.invoiceNumber = res.data.invoiceNumber;
             }
         });
     }
@@ -136,17 +147,19 @@ export class CreateInvoiceComponent implements OnInit {
         let data = {
             date: new Date(),
             customerDetails: this.selectedCustomer,
+            companyDetails: this.companyDetails,
             items: this.selectedItems,
             invoiceTotal: this.countTotal(),
             invoiceDiscountAmount: this.discountOnTotalType === 'fixed' ? this.discountOnTotal : (this.countTotal() * (this.discountOnTotal / 100)),
-            grandTotal: this.countTotalAfterDiscount()
+            grandTotal: this.countTotalAfterDiscount(),
+            invoiceNumber: this.invoiceNumber
         };
 
         this.dialog.open(InvoicePreviewComponent, {
             width: '99vw',
             maxWidth: '99vw',
-            height: '99vh',
-            maxHeight: '99vh',
+            height: '90vh',
+            maxHeight: '90vh',
             data
         });
     }

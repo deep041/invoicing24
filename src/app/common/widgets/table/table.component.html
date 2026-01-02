@@ -32,7 +32,7 @@
                 } @else if (header.isEdit) {
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit" (click)="edit.emit(rowData)"></mat-icon>
                 } @else if (header.isViewIcon) {
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit" (click)="view.emit(rowData)"></mat-icon>
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="visibility" (click)="view.emit(rowData)"></mat-icon>
                 } @else {
                     {{ rowData[header.key] }}
                 }

@@ -39,17 +39,19 @@ export class InvoicesComponent implements OnInit {
                 let data = {
                     date: invoiceDetails.invoiceDate,
                     customerDetails: invoiceDetails.customerDetails,
+                    companyDetails: invoiceDetails.companyDetails,
                     items: invoiceDetails.items,
                     invoiceTotal: invoiceDetails.total,
                     invoiceDiscountAmount: invoiceDetails.totalDiscountAmount,
-                    grandTotal: invoiceDetails.grandTotal
+                    grandTotal: invoiceDetails.grandTotal,
+                    invoiceNumber: invoiceDetails.invoiceNumber
                 };
 
                 this.dialog.open(InvoicePreviewComponent, {
                     width: '99vw',
                     maxWidth: '99vw',
-                    height: '99vh',
-                    maxHeight: '99vh',
+                    height: '90vh',
+                    maxHeight: '90vh',
                     data
                 });
             }

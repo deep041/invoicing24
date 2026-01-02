@@ -25,4 +25,9 @@ export class NavigationComponent implements OnInit {
     isActive(paths: string[]): boolean {
         return paths.some(p => this.router.url.startsWith(p));
     }
+
+    logout() {
+        localStorage.clear();
+        this.router.navigate(['authentication/login']);
+    }
 }

@@ -16,8 +16,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content {
     padding: var(--mat-dialog-with-actions-content-padding, 20px 10px 0) !important;
+    max-height: unset !important;
 }
 
 .mat-mdc-dialog-actions {
-padding: var(--mat-dialog-actions-padding, 16px 10px) !important;
+    padding: var(--mat-dialog-actions-padding, 16px 10px) !important;
 }

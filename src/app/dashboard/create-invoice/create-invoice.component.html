@@ -7,9 +7,9 @@
         <div class="data">
             <div class="title">Customer</div>
             <div class="value" *ngIf="!selectedCustomer" (click)="selectCustomer()">Select Customer</div>
-            <div class="value" *ngIf="selectedCustomer"><span>Name: </span><b> {{ selectedCustomer.name }}</b></div>
-            <div class="value" *ngIf="selectedCustomer"><span>Contact No.: </span> {{ selectedCustomer.contactNo }}</div>
-            <div class="value" *ngIf="selectedCustomer"><span>Address: </span> {{ selectedCustomer.address }}</div>
+            <div class="value" *ngIf="selectedCustomer"><b> {{ selectedCustomer.name }}</b></div>
+            <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="phone"></mat-icon> {{ selectedCustomer.contactNo }}</div>
+            <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="location_on"></mat-icon> {{ selectedCustomer.address }}</div>
             <div class="value" *ngIf="selectedCustomer && selectedCustomer.stateCode"><span>State: </span> {{ selectedCustomer.stateCode }}</div>
             <div class="value" *ngIf="selectedCustomer && selectedCustomer.gstNo"><span>GST No.: </span> {{ selectedCustomer.gstNo }}</div>
         </div>

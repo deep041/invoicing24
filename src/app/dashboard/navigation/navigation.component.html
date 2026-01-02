@@ -32,7 +32,7 @@
                 <div class="user-logo">{{ dataService.getLocalStorage('name')[0] }}</div>
                 <div class="user-name">{{ dataService.getLocalStorage('name') }}</div> 
             </div>
-            <mat-icon>logout</mat-icon>
+            <mat-icon (click)="logout()">logout</mat-icon>
         </div>
     </div>
 </div>
