@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 
 export class CustomersComponent implements OnInit {
 
-    headers = [{ label: 'Name', key: 'name' }, { label: 'Contact No.', key: 'contactNo' }, { label: 'Address', key: 'address' }];
+    headers = [{ label: 'Name', key: 'name' }, { label: 'Contact No.', key: 'contactNo' }, { label: 'Address', key: 'address' }, { label: 'Edit', key: 'edit', isEdit: true }];
     customerData: any[] = [];
 
     constructor(private dialog: MatDialog, private apiService: ApiService) {}
@@ -33,10 +33,12 @@ export class CustomersComponent implements OnInit {
         })
     }
 
-    createCustomer() {
+    createCustomer(data: any = null) {
+        console.log('Customer Data => ', data)
         let dialogRef = this.dialog.open(CreateCustomerComponent, {
-            width: '300px',
-            height: '300px'
+            width: '500px',
+            height: '400px',
+            data
         });
 
         dialogRef.afterClosed().subscribe(result => {

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { InputComponent } from "../../widgets/input/input.component";
-import { MatDialogActions, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
 import { ButtonComponent } from "../../widgets/button/button.component";
 import { TextareaComponent } from "../../widgets/textarea/textarea.component";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -17,27 +17,49 @@ export class CreateCustomerComponent implements OnInit {
 
     customerForm!: FormGroup;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService, private dialogRef: MatDialogRef<CreateCustomerComponent>) {}
+    constructor(private fb: FormBuilder, private apiService: ApiService, private dialogRef: MatDialogRef<CreateCustomerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     ngOnInit(): void {
         this.createForm();
+
+        if (this.data?._id) {
+            this.customerForm.patchValue({
+                id: this.data._id,
+                name: this.data.name,
+                contactNo: this.data.contactNo,
+                address: this.data.address,
+                stateCode: this.data.stateCode,
+                gstNo: this.data.gstNo
+            });
+        }
     }
 
     createForm() {
         this.customerForm = this.fb.group({
+            id: [''],
             name: ['', [Validators.required]],
             contactNo: ['', [Validators.required]],
-            address: ['', [Validators.required]]
+            address: ['', [Validators.required]],
+            stateCode: ['', Validators.required],
+            gstNo: ['']
         });
     }
 
     create() {
         if (this.customerForm.valid) {
-            this.apiService.createCustomer(this.customerForm.value).subscribe((data: any) => {
-                if (data.success) {
-                    this.close(true);
-                }
-            })
+            if (this.data?._id) {
+                this.apiService.editCustomer(this.customerForm.value).subscribe((data: any) => {
+                    if (data.success) {
+                        this.close(true);
+                    }
+                });
+            } else {
+                this.apiService.createCustomer(this.customerForm.value).subscribe((data: any) => {
+                    if (data.success) {
+                        this.close(true);
+                    }
+                });
+            }
         }
     }
 

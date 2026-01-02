@@ -6,9 +6,15 @@
     <mat-dialog-content class="mat-typography">
         <form [formGroup]="customerForm">
             <div class="customer-body">
-                <app-input [title]="'Name'" [placeholder]="'Name'" formControlName="name"></app-input>
-                <app-input [title]="'Contact No.'" [placeholder]="'Contact No.'" formControlName="contactNo"></app-input>
-                <app-textarea [title]="'Address'" [placeholder]="'Address'" formControlName="address"></app-textarea>
+                <div class="input-group">
+                    <app-input [title]="'Name'" [label]="'Name'" [placeholder]="'Name'" formControlName="name"></app-input>
+                    <app-input [title]="'Contact No.'" [label]="'Contact No.'" [placeholder]="'Contact No.'" formControlName="contactNo"></app-input>
+                </div>
+                <div class="input-group">
+                    <app-input [title]="'GST No.'" [label]="'GST No.'" [placeholder]="'GST No.'" formControlName="gstNo"></app-input>
+                    <app-input [title]="'State'" [label]="'State'" [placeholder]="'State'" formControlName="stateCode"></app-input>
+                </div>
+                <app-textarea [title]="'Address'" [label]="'Address'" [placeholder]="'Address'" formControlName="address"></app-textarea>
             </div>
         </form>
     </mat-dialog-content>
@@ -17,6 +23,6 @@
 <mat-dialog-actions align="end">
     <div class="footer-buttons">
         <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
-        <app-button [title]="'Create'" (click)="create()"></app-button> 
+        <app-button [title]="data?._id ? 'Update' : 'Create'" (click)="create()"></app-button> 
     </div>
  </mat-dialog-actions>

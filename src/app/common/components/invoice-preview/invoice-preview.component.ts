@@ -1,15 +1,15 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { TableComponent } from "../../widgets/table/table.component";
-import { DataService } from '../../services/data.service';
 import { MatDialogContent, MatDialogActions, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ButtonComponent } from "../../widgets/button/button.component";
-import { CurrencyPipe, DatePipe, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 declare var $: any;
 
 @Component({
     selector: 'app-invoice-preview',
-    imports: [TableComponent, MatDialogContent, MatDialogActions, ButtonComponent, DatePipe, NgIf, CurrencyPipe],
+    imports: [TableComponent, MatDialogContent, MatDialogActions, ButtonComponent, CommonModule, MatIconModule],
     templateUrl: './invoice-preview.component.html',
     styleUrl: './invoice-preview.component.scss'
 })
@@ -17,11 +17,13 @@ declare var $: any;
 export class InvoicePreviewComponent implements OnInit {
 
     @Input() customerDetails: any;
+    @Input() companyDetails: any;
     @Input() items: any;
+    @Input() invoiceNumber: number = 0;
     @Input() date = new Date();
 
     subtotal: number = 0;
-    headers = [{ label: 'Name', key: 'name' }, { label: 'Qty', key: 'qty', align: 'right' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }, { label: 'Total', key: 'total', align: 'right', isCurrency: true }];
+    headers = [{ label: 'Name', key: 'name' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }, { label: 'Quantity', key: 'quantity', align: 'right' }, { label: 'Amount', key: 'amount', align: 'right', isCurrency: true }, { label: 'Discount Amount', key: 'discountAmount', align: 'right', isDiscountAmount: true }, { label: 'Net Amount', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity' }];
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<InvoicePreviewComponent>) {}
 
@@ -30,6 +32,14 @@ export class InvoicePreviewComponent implements OnInit {
             this.customerDetails = this.data.customerDetails;
         }
 
+        if (this.data.companyDetails) {
+            this.companyDetails = this.data.companyDetails;
+        }
+
+        if (this.data.invoiceNumber) {
+            this.invoiceNumber = this.data.invoiceNumber;
+        }
+        
         if (this.data.date) {
             this.date = this.data.date;
         }
@@ -39,9 +49,11 @@ export class InvoicePreviewComponent implements OnInit {
                 this.subtotal += data.quantity * data.price;
                 return {
                     name: data.name, 
-                    qty: data.quantity, 
+                    quantity: data.quantity, 
                     price: data.price,
-                    total: data.quantity * data.price
+                    amount: data.quantity * data.price,
+                    discountType: data.discountType,
+                    discount: data.discount
                 }
             })
         }

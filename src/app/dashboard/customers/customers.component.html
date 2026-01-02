@@ -6,6 +6,6 @@
     </div>
 
     <div class="customer-list">
-        <app-table *ngIf="customerData" [headers]="headers" [data]="customerData"></app-table>
+        <app-table *ngIf="customerData" [headers]="headers" [data]="customerData" (edit)="createCustomer($event)"></app-table>
     </div>
 </div>

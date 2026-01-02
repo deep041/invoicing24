@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class SelectItemsComponent implements OnInit {
 
     selectedItems: any;
-    headers = [{ label: 'Checkbox', key: 'checkbox' }, { label: 'Name', key: 'name' }, { label: 'Category', key: 'category' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }];
+    headers = [{ label: 'Checkbox', key: 'checkbox' }, { label: 'Name', key: 'name' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }];
     items: any[] = [];
 
     constructor(public dialogRef: MatDialogRef<SelectItemsComponent>, private apiService: ApiService) { }

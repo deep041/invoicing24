@@ -1,0 +1,127 @@
+<div class="nav-bar-container">
+    <div class="logo">Invoicing24</div>
+    <div class="nav-bar">
+        <a class="active">Home</a>
+        <a>About us</a>
+        <a>Contact us</a>
+    </div>
+    <div class="login">
+        <a (click)="redirect('/authentication/login')">Login/Signup</a>
+    </div>
+
+    <div class="menu-icon-bar">
+        <mat-icon (click)="isMenuOpen = !isMenuOpen">{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </div>
+</div>
+
+<div class="mobile-menu" [ngClass]="{ 'active': isMenuOpen }">
+    <a class="active">Home</a>
+    <a>About us</a>
+    <a>Contact us</a>
+
+    <div class="login">
+        <a>Login/Signup</a>
+    </div>
+</div>
+
+<div class="hero-container">
+    <div class="hero-text">
+        <div class="hero-text-title section-title">Create beautiful invoices in seconds --- 100% Free</div>
+        <ul>
+            <li>No sign-up fees</li>
+            <li>No watermarks</li>
+            <li>No limits</li>
+            <li>Just fast, simple, powerful invoicing for everyone</li>
+        </ul>
+    </div>
+    <div class="hero-image">
+        <img src="../../assets/invoicing24-hero-section.png">
+        <span class="float-item dot"></span>
+        <span class="float-item ring"></span>
+        <span class="float-item icon">₹</span>
+    </div>
+</div>
+
+<div class="features-container">
+    <h2>⭐ Why Invoicing24?</h2>
+
+    <div class="feature-boxes">
+        <div class="feature-box">
+            <div class="feature-box-number">1</div>
+            <div class="feature-box-title">Completely Free</div>
+            <div class="feature-box-desc">No hidden charges, no monthly plans, no trials. Invoicing24 is free for now.</div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-box-number">2</div>
+            <div class="feature-box-title">Zero Watermarks</div>
+            <div class="feature-box-desc">Your invoices are clean and professional — we never place our logo or watermark on your documents.</div>
+        </div>
+        <div class="feature-box">
+            <div class="feature-box-number">3</div>
+            <div class="feature-box-title">Unlimited Invoices</div>
+            <div class="feature-box-desc">Create as many invoices as you want. Whether you send 5 a month or 500, we’ve got you.</div>
+        </div>
+    </div>
+</div>
+
+<div class="feature-you-love-container">
+    <h2>🚀 Features You'll Love</h2>
+    <div class="feature-you-love">
+        <div>
+            <div class="feature"><span>✅</span> Works smoothly on mobile and desktop</div>
+            <div class="feature"><span>✅</span> Easy-to-use invoice creator</div>
+            <div class="feature"><span>✅</span> Professional invoice templates</div>
+        </div>
+        <div>
+            <div class="feature"><span>✅</span> Auto-calculated totals & taxes</div>
+            <div class="feature"><span>✅</span> Save and manage your full invoice history</div>
+            <div class="feature"><span>✅</span> Download as PDF instantly</div>
+        </div>
+    </div>
+</div>
+
+<div class="about-us-container">
+    <h2>💬 About Invoicing24</h2>
+    <p>Invoicing24 was created with one clear goal — to make invoicing simple, fast, and accessible for freelancers, small businesses, and growing teams.</p>
+    <p>We believe creating invoices shouldn’t be complicated, expensive, or limited. That’s why Invoicing24 allows you to create professional invoices without watermarks, limits, or hidden charges — so you can focus on running your business, not managing tools.</p>
+</div>
+
+<div class="footer-container">
+    <div class="app-details">
+        <div class="logo">Invoicing24</div>
+        <div class="sub-line">Free online invoicing tool to create unlimited, watermark-free invoices in minutes.</div>
+        <div class="social">
+            <div class="social-icon"><img src="../../assets/icons/facebook.svg"></div>
+            <div class="social-icon"><img src="../../assets/icons/instagram.svg"></div>
+            <div class="social-icon"><img src="../../assets/icons/linkedin.svg"></div>
+            <div class="social-icon"><img src="../../assets/icons/x-twitter.svg"></div>
+            <div class="social-icon"><img src="../../assets/icons/youtube.svg"></div>
+        </div>
+    </div>
+    <div class="quick-links">
+        <b>Quick Links</b>
+        <a>Home</a>
+        <a>Contact us</a>
+        <a>About us</a>
+    </div>
+    <div class="quick-links">
+        <b>Registration</b>
+        <a>Login</a>
+        <a>Signup</a>
+    </div>
+    <div class="quick-links">
+        <b>Legal</b>
+        <a>Privacy Policy</a>
+        <a>Terms of service</a>
+        <a>Refer your friends</a>
+    </div>
+</div>
+
+<div class="footer-2">
+    <div class="love-line">
+        Made with <span class="heart">❤️</span> in India
+    </div>
+    <div class="copyright">
+        © 2026 Invoicing24. All rights reserved.
+    </div>
+</div>

@@ -1,0 +1,36 @@
+.loader-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(17, 17, 17, 0.3); /* better than #11111130 */
+    position: fixed;   /* stay fixed even on scroll */
+    top: 0;
+    left: 0;
+    z-index: 9999;     /* ensure it’s on top of everything */
+    overflow: hidden;  /* prevent scroll inside loader */
+}
+
+.loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    background: linear-gradient(90deg, #000 50%, #0000 0) right/ 200% 100%;
+    animation: l21 2s infinite linear;
+}
+
+.loader::before {
+    content: "Invoicing24";
+    color: #0000;
+    padding: 0 5px;
+    background: inherit;
+    background-image: linear-gradient(90deg, #fff 50%, #000 0);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+  
+@keyframes l21 {
+    100% { background-position: left }
+}

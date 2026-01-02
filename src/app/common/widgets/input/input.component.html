@@ -1,2 +1,2 @@
-<div *ngIf="label">{{ label }}</div>
-<input [type]="type" [placeholder]="placeholder" [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="handleInput()">
+<div class="input-label" *ngIf="label">{{ label }}</div>
+<input [type]="type" [placeholder]="placeholder" [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="handleInput()" (input)="checkValidation($event)" [min]="min" [max]="max">

@@ -6,8 +6,9 @@
     <mat-dialog-content class="mat-typography">
         <form [formGroup]="itemForm">
             <div class="customer-body">
-                <app-input [placeholder]="'Name'" formControlName="name"></app-input>
-                <app-input [placeholder]="'Price'" formControlName="price"></app-input>
+                <app-input [placeholder]="'Name'" [label]="'Name'" formControlName="name"></app-input>
+                <app-input [placeholder]="'Price'" [label]="'Price'" formControlName="price"></app-input>
+                <app-input [placeholder]="'HSN Code'" [label]="'HSN Code'" formControlName="hsnCode"></app-input>
             </div>
         </form>
     </mat-dialog-content>
@@ -16,6 +17,6 @@
 <mat-dialog-actions align="end">
     <div class="footer-buttons">
         <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
-        <app-button [title]="'Create'" (click)="create()"></app-button> 
+        <app-button [title]="data?._id ? 'Edit' : 'Create'" (click)="create()"></app-button> 
     </div>
  </mat-dialog-actions>
