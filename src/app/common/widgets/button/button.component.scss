@@ -1,14 +1,14 @@
 .style1 {
-    padding: 7px 12px;
-    background-color: #000080;
-    border: 2px solid #000080;
+    padding: 4px 12px;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
     color: #FFFFFF;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .style1:hover {
-    background-color: #0000A0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -20,12 +20,13 @@
 }
 
 .style2 {
-    padding: 7px 12px;
+    padding: 4px 12px;
     background-color: #FFFFFF;
-    border: 2px solid #000080;
-    color: #000080;
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .style2:hover {
@@ -39,4 +40,31 @@
     color: #A0A0A0;
     cursor: not-allowed;
     box-shadow: none;
+}
+
+
+/* CSS */
+.button-47 {
+  align-items: center;
+  background: #FFFFFF;
+  border: 0 solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  color: #1A202C;
+  display: inline-flex;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 56px;
+  justify-content: center;
+  line-height: 24px;
+  overflow-wrap: break-word;
+  padding: 24px;
+  text-decoration: none;
+  width: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }

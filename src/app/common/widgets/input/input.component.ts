@@ -22,6 +22,8 @@ export class InputComponent implements ControlValueAccessor {
     @Input() type: string = 'text';
     @Input() placeholder: string = '';
     @Input() disabled: boolean = false;
+    @Input() min: number | null = 0;
+    @Input() max: number | null = 0;
 
     value: any = '';
 
@@ -47,5 +49,15 @@ export class InputComponent implements ControlValueAccessor {
     handleInput() {
         this.onChange(this.value);
         this.onTouched();
+    }
+
+    checkValidation(event: Event) {
+        if ((this.type === 'number') && this.max && (this.value > this.max)) {
+            this.value = this.max;
+            let input =  event.target as HTMLInputElement;
+
+            input.value = this.value;
+            this.handleInput();
+        }
     }
 }

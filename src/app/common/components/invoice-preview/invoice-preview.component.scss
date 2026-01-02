@@ -16,19 +16,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
 }
 
 .invoice-bill-details .bill-from {
     text-align: right;
 }
 
-.invoice-bill-details .bill-to h3, .invoice-bill-details .bill-from h3 {
-    margin-bottom: 10px;
-}
-
 .invoice-bill-details .bill-to p, .invoice-bill-details .bill-from p {
     margin: 0px;
-    margin-bottom: 1px;
 }
 
 .invoice-bill-details .bill-to p.name, .invoice-bill-details .bill-from p.name {
@@ -38,6 +34,13 @@
 .invoice-bill-details .bill-to p.details, .invoice-bill-details .bill-from p.details {
     color: gray;
     font-size: 12px;
+}
+
+.invoice-bill-details .bill-to p span, .invoice-bill-details .bill-from p span {
+    color: gray;
+    font-size: 10px;
+    display: inline-block;
+    min-width: 60px;
 }
 
 .invoice-date {
@@ -57,4 +60,15 @@
 .footer-button-container {
     display: flex;
     gap: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #111;
+}
+
+h3 {
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 0px;
 }

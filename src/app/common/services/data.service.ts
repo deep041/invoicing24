@@ -8,6 +8,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DataService {
 
     isShowLoader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    discountType: { label: string, value: string }[] = [{ label: 'Fixed', value: 'fixed' }, { label: 'Percentage', value: 'percentage' }];
 
     constructor() { }
 

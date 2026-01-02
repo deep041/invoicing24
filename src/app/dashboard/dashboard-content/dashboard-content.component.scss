@@ -1,0 +1,48 @@
+.company-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-button-container {
+    margin-top: 10px;
+}
+
+.dashboard-top-boxes {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-top-boxes .dashboard-box {
+    background-color: var(--primary-color);
+    color: #FFF;
+    padding: 10px 25px;
+    width: 23%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-top-boxes .dashboard-box .dashboard-box-count {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dashboard-top-boxes .dashboard-box .dashboard-box-title {
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.chart-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.chart-container .bar-chart {
+    height: 230px;
+    width: 33%;
+}

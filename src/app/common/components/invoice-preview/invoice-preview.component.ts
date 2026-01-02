@@ -1,6 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { TableComponent } from "../../widgets/table/table.component";
-import { DataService } from '../../services/data.service';
 import { MatDialogContent, MatDialogActions, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ButtonComponent } from "../../widgets/button/button.component";
 import { CurrencyPipe, DatePipe, NgIf } from '@angular/common';
@@ -21,7 +20,7 @@ export class InvoicePreviewComponent implements OnInit {
     @Input() date = new Date();
 
     subtotal: number = 0;
-    headers = [{ label: 'Name', key: 'name' }, { label: 'Qty', key: 'qty', align: 'right' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }, { label: 'Total', key: 'total', align: 'right', isCurrency: true }];
+    headers = [{ label: 'Name', key: 'name' }, { label: 'Price', key: 'price', align: 'right', isCurrency: true }, { label: 'Quantity', key: 'quantity', align: 'right' }, { label: 'Amount', key: 'amount', align: 'right', isCurrency: true }, { label: 'Discount Amount', key: 'discountAmount', align: 'right', isDiscountAmount: true }, { label: 'Net Amount', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity' }];
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<InvoicePreviewComponent>) {}
 
@@ -39,9 +38,11 @@ export class InvoicePreviewComponent implements OnInit {
                 this.subtotal += data.quantity * data.price;
                 return {
                     name: data.name, 
-                    qty: data.quantity, 
+                    quantity: data.quantity, 
                     price: data.price,
-                    total: data.quantity * data.price
+                    amount: data.quantity * data.price,
+                    discountType: data.discountType,
+                    discount: data.discount
                 }
             })
         }

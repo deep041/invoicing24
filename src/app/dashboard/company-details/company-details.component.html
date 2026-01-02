@@ -4,9 +4,15 @@
     </div>
 
     <form class="company-details-form" [formGroup]="companyDetailsForm">
-        <app-input [placeholder]="'Name'" formControlName="name"></app-input>
-        <app-input [placeholder]="'Contact No.'" formControlName="contactNo"></app-input>
-        <app-textarea [placeholder]="'Address'" formControlName="address"></app-textarea>
+        <div class="input-group">
+            <app-input [placeholder]="'Name'" [label]="'Name'" formControlName="name"></app-input>
+            <app-input [placeholder]="'Contact No.'" [label]="'Contact No.'" formControlName="contactNo"></app-input>
+        </div>
+        <div class="input-group">
+            <app-input [placeholder]="'GST No.'" [label]="'GST No.'" formControlName="gstNo"></app-input>
+            <app-input [placeholder]="'State'" [label]="'State'" formControlName="stateCode"></app-input>
+        </div>
+        <app-textarea [placeholder]="'Address'" [label]="'Address'" formControlName="address"></app-textarea>
     </form>
 
     <div class="footer-button-container">

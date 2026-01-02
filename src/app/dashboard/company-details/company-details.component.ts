@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InputComponent } from "../../common/widgets/input/input.component";
 import { TextareaComponent } from "../../common/widgets/textarea/textarea.component";
 import { ApiService } from '../../common/services/api.service';
+import { ToastService } from '../../common/services/toast.service';
 
 @Component({
     selector: 'app-company-details',
@@ -16,7 +17,7 @@ export class CompanyDetailsComponent implements OnInit {
 
     companyDetailsForm!: FormGroup;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService) {}
+    constructor(private fb: FormBuilder, private apiService: ApiService, private toastService: ToastService) {}
 
     ngOnInit(): void {
         this.createForm();
@@ -28,7 +29,9 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyDetailsForm = this.fb.group({
             name: ['', Validators.required],
             contactNo: ['', Validators.required],
-            address: ['', Validators.required]
+            address: ['', Validators.required],
+            stateCode: ['', Validators.required],
+            gstNo: ['']
         });
     }
 
@@ -38,7 +41,9 @@ export class CompanyDetailsComponent implements OnInit {
                 this.companyDetailsForm.patchValue({
                     name: res.data.name,
                     contactNo: res.data.contactNo,
-                    address: res.data.address 
+                    address: res.data.address,
+                    stateCode: res.data.stateCode,
+                    gstNo: res.data.gstNo
                 });
             }
         })
@@ -46,8 +51,9 @@ export class CompanyDetailsComponent implements OnInit {
 
     save() {
         this.apiService.addCompanyDetails(this.companyDetailsForm.value).subscribe((res: any) => {
+            console.log(res);
             if (res && res.success) {
-
+                this.toastService.show({ message: 'Company details updated successfully!', type: 'success' });
             }
         });
     }

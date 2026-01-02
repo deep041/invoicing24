@@ -24,12 +24,20 @@ export class ApiService {
         return this.http.post<any>(`${environment.apiUrl}customer`, payload);
     }
 
+    editCustomer(payload: any) {
+        return this.http.post<any>(`${environment.apiUrl}customer/edit`, payload);
+    }
+
     getCustomers() {
         return this.http.get<any>(`${environment.apiUrl}customer`);
     }
 
     createItem(payload: any) {
         return this.http.post<any>(`${environment.apiUrl}item`, payload);
+    }
+
+    editItem(payload: any) {
+        return this.http.post<any>(`${environment.apiUrl}item/edit`, payload);
     }
 
     getItems() {
@@ -50,6 +58,10 @@ export class ApiService {
 
     getInvoices() {
         return this.http.get<any>(`${environment.apiUrl}invoice`);
+    }
+
+    getInvoiceById(id: string) {
+        return this.http.get<any>(`${environment.apiUrl}invoice/${id}`);
     }
 
 }

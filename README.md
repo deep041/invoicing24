@@ -1,59 +1,22 @@
-# Invoicing
+# Invoicing24.com
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.14.
+** Pending Tasks **
+1. Invoice number dynamic
+2. Preview invoice from list screen
+3. Dashboard
+4. Print invoice page changes
+5. Item HSN code
+6. Remove invoice items from invoice model -- IMP
+7. GSTN Number in invoice
 
-## Development server
+** Pending Functionality **
+1. GST Invoices
+2. Integrate AI
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* 01/01/2026 - Target to complete
+1. Invoice number dynamic -- Done
+2. Preview invoice from list screen -- Done
+3. Print invoice page changes
+4. Item HSN code
+5. Remove invoice items from invoice model -- IMP -- Done

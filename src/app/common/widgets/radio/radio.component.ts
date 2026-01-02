@@ -1,27 +1,26 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-    selector: 'app-textarea',
-    imports: [FormsModule, CommonModule],
-    templateUrl: './textarea.component.html',
-    styleUrl: './textarea.component.scss',
+    selector: 'app-radio',
+    imports: [FormsModule],
+    templateUrl: './radio.component.html',
+    styleUrl: './radio.component.scss',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TextareaComponent),
+            useExisting: forwardRef(() => RadioComponent),
             multi: true
         }
     ]
 })
 
-export class TextareaComponent implements ControlValueAccessor {
+export class RadioComponent implements ControlValueAccessor {
 
     @Input() label: string = '';
-    @Input() type: string = 'text';
-    @Input() placeholder: string = '';
     @Input() disabled: boolean = false;
+    @Input() options: any[] = [];
+    @Input() name: string = 'default';
 
     value: any = '';
 

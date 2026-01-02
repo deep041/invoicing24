@@ -1,0 +1,8 @@
+<div class="radio-container">
+    @for (option of options; let i = $index; track $index) {
+        <div class="radio-buttons">
+            <input type="radio" [id]="name + option.value + i" [name]="name" [value]="option.value" [(ngModel)]="value" (ngModelChange)="handleInput()" />
+            <label [for]="name + option.value + i">{{ option.label }}</label>
+        </div>
+    }
+</div>

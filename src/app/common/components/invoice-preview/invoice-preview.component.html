@@ -8,9 +8,9 @@
         <div class="invoice-bill-details">
             <div class="bill-to">
                 <h3>Bill To:</h3>
-                <p class="name">{{ customerDetails.name }}</p>
-                <p class="details">{{ customerDetails.contactNo }}</p>
-                <p class="details">{{ customerDetails.address }}</p>
+                <p class="name"><span>Name: </span> {{ customerDetails.name }}</p>
+                <p class="details"><span>Contact No.: </span> {{ customerDetails.contactNo }}</p>
+                <p class="details"><span>Address: </span> {{ customerDetails.address }}</p>
             </div>
     
             <div class="bill-from">
@@ -25,7 +25,9 @@
     
         <div class="invoice-items">
             <app-table *ngIf="items" [headers]="headers" [data]="items"></app-table>
-            <div class="invoice-total">Total: <b>{{ subtotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</b></div>
+            <div class="invoice-total">Total: <b>{{ data.invoiceTotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</b></div>
+            <div class="invoice-total">Discount Amount: <b>{{ data.invoiceDiscountAmount | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</b></div>
+            <div class="invoice-total">Grand Total: <b>{{ data.grandTotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</b></div>
         </div>
     </div>
 </mat-dialog-content>

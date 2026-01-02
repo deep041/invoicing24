@@ -1,0 +1,15 @@
+.radio-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-container .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.radio-container .radio-buttons label {
+    font-size: 12px;
+}

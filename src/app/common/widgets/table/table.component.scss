@@ -8,7 +8,7 @@ th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #000080;
+    background-color: var(--primary-color);
     color: white;
     font-size: 14px;
 }
@@ -46,4 +46,8 @@ tr:nth-child(even) {
 .inactive-status {
     background-color: #ff000020;
     color: #ff0000;
+}
+
+.mat-icon {
+    cursor: pointer;
 }

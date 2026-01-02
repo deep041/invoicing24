@@ -2,10 +2,13 @@ export interface Invoice {
     companyDetails: CompanyDetails;
     customerDetails: CustomerDetails;
     items: InvoiceItem[];
-    invoiceNumber: string;
+    invoiceNumber?: string;
     invoiceDate: Date;
     discount?: number;
     discountType?: 'percentage' | 'fixed';
+    total: number;
+    grandTotal: number;
+    totalDiscountAmount?: number;
 }
 
 export interface CompanyDetails {
@@ -28,5 +31,8 @@ export interface InvoiceItem {
     quantity: number;
     discount?: number;
     discountType?: 'percentage' | 'fixed';
+    discountValue?: number;
+    amount: number;
+    netAmount: number;
     id: string;
 }

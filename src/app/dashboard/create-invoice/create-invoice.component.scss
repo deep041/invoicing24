@@ -9,15 +9,21 @@
 .data .title {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 10px;
-    color: #000080;
+    margin-bottom: 5px;
+    color: var(--primary-color);
 }
 
 .data .value {
     font-size: 14px;
-    margin-bottom: 10px;
     color: #333333;
     cursor: pointer;
+}
+
+.data .value span {
+    color: gray;
+    font-size: 10px;
+    display: inline-block;
+    min-width: 60px;
 }
 
 .data.items {
@@ -28,4 +34,30 @@
     display: flex;
     gap: 10px;
     margin-top: 20px;
+}
+
+.total, .discount {
+    text-align: right;
+}
+
+.discount .discount-type {
+    width: 240px;
+    margin-left: auto;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.discount .discount-type app-radio, .discount .discount-type app-input {
+    display: inline-block;
+}
+
+.total span, .discount span {
+    font-size: 10px;
+    color: gray;
+}
+
+.total-container {
+    margin-top: 10px;
 }

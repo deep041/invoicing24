@@ -5,6 +5,6 @@
     </div>
 
     <div class="customer-list">
-        <app-table [headers]="headers" [data]="invoices"></app-table>
+        <app-table [headers]="headers" [data]="invoices" (view)="viewInvoice($event)"></app-table>
     </div>
 </div>
