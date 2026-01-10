@@ -1,3 +1,5 @@
 export const environment = {
-    apiUrl: 'https://api.invoicing24.com/'
+    production: true,
+    apiUrl: 'https://api.invoicing24.com/',
+    gtmId: 'G-DX4SLSSE86'
 };
