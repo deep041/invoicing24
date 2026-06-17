@@ -1,24 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global design system — modern, professional, light theme */
 
 :root {
-    --primary-color: #360185;
-    --secondary-color: #8F0177;
-    --secondary-color-light: #8F017720;
-    --text-color: #333;
+  --primary-color: #4f46e5;
+  --primary-color-hover: #4338ca;
+  --primary-color-light: #eef2ff;
+  --secondary-color: #6366f1;
+  --secondary-color-light: #f5f3ff;
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border-color: #e2e8f0;
+  --border-color-strong: #cbd5e1;
+  --bg-base: #ffffff;
+  --bg-subtle: #f8fafc;
+  --bg-muted: #f1f5f9;
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --success-color: #16a34a;
+  --success-bg: #f0fdf4;
+  --error-color: #dc2626;
+  --error-bg: #fef2f2;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--bg-subtle);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Shared page layout */
+.invoice-container,
+.items-container,
+.customers-container {
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+  }
+}
+
+/* Material dialog overrides */
 .mat-mdc-dialog-surface {
-    border-radius: 5px !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content {
-    padding: var(--mat-dialog-with-actions-content-padding, 20px 10px 0) !important;
-    max-height: unset !important;
+  padding: var(--mat-dialog-with-actions-content-padding, 20px 24px 0) !important;
+  max-height: unset !important;
 }
 
 .mat-mdc-dialog-actions {
-    padding: var(--mat-dialog-actions-padding, 16px 10px) !important;
+  padding: var(--mat-dialog-actions-padding, 16px 24px) !important;
+}
+
+/* Invoice print — prevent top clipping in print iframe */
+@media print {
+  @page {
+    size: auto;
+    margin: 12mm 10mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #print-section,
+  #print-section * {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  #print-section {
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }

@@ -1,46 +1,89 @@
-<mat-dialog-content class="mat-typography">
-  <div class="invoice-preview-container" id="print-section">
-    <div class="invoice-preview-title">
-      <h2>Invoice</h2>
-      <div class="invoice-number"> Invoice No: <b>#{{invoiceNumber}}</b></div>
-    </div>
+<mat-dialog-content class="preview-dialog-content">
+  <div class="preview-shell">
 
-    <div class="invoice-bill-details">
-      <div class="bill-to">
-        <h3>Bill To:</h3>
-        <p class="name">{{ customerDetails.name }}</p>
-        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-            fontIcon="phone"></mat-icon> {{ customerDetails.contactNo }}</p>
-        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-            fontIcon="location_on"></mat-icon> {{ customerDetails.address }}</p>
+    <div class="preview-toolbar no-print">
+      <div class="preview-toolbar-text">
+        <h2>Invoice Preview</h2>
+        <p>Review your invoice before printing</p>
       </div>
-
-      <div class="bill-from">
-        <h3>From:</h3>
-        <p class="name">{{ companyDetails.name }}</p>
-        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-            fontIcon="phone"></mat-icon> {{ companyDetails.contactNo }}</p>
-        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-            fontIcon="location_on"></mat-icon> {{ companyDetails.address }}</p>
+      <div class="preview-toolbar-actions">
+        <app-button [title]="'Print'" [style]="'style2'" (click)="print()"></app-button>
+        <app-button [title]="'Close'" (click)="close()"></app-button>
       </div>
     </div>
 
-    <div class="invoice-date">Date: <b>{{ date | date: 'dd MMMM y' }}</b></div>
+    <div class="invoice-document-viewport">
+      <div class="invoice-document" id="print-section">
+        <header class="invoice-header">
+          <div class="invoice-brand">
+            <div class="brand-name">{{ companyDetails?.name }}</div>
+            <div class="brand-contact">{{ companyDetails?.contactNo }}</div>
+            <div class="brand-address">{{ companyDetails?.address }}</div>
+          </div>
+          <div class="invoice-meta">
+            <div class="invoice-meta-label">Invoice</div>
+            <div class="invoice-meta-number">#{{ invoiceNumber }}</div>
+            <div class="invoice-meta-date">{{ date | date: 'dd MMM yyyy' }}</div>
+          </div>
+        </header>
 
-    <div class="invoice-items">
-      <app-table *ngIf="items" [headers]="headers" [data]="items"></app-table>
-      <div class="invoice-total first"><span>Total:</span> {{ data.invoiceTotal | currency }}</div>
-      <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Discount Amount:</span> {{
-        data.invoiceDiscountAmount | currency }}</div>
-      <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Grand Total:</span>
-        {{ data.grandTotal | currency }}</div>
+        <div class="invoice-parties">
+          <div class="party-card">
+            <div class="party-label">Bill To</div>
+            <div class="party-name">{{ customerDetails?.name }}</div>
+            <div class="party-detail">
+              <mat-icon>phone</mat-icon>
+              <span>{{ customerDetails?.contactNo }}</span>
+            </div>
+            <div class="party-detail">
+              <mat-icon>location_on</mat-icon>
+              <span>{{ customerDetails?.address }}</span>
+            </div>
+          </div>
+          <div class="party-card party-card-from">
+            <div class="party-label">From</div>
+            <div class="party-name">{{ companyDetails?.name }}</div>
+            <div class="party-detail">
+              <mat-icon>phone</mat-icon>
+              <span>{{ companyDetails?.contactNo }}</span>
+            </div>
+            <div class="party-detail">
+              <mat-icon>location_on</mat-icon>
+              <span>{{ companyDetails?.address }}</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="invoice-items-section">
+          <div class="section-heading">Line Items</div>
+          <div class="invoice-table-wrap">
+            <app-table *ngIf="items?.length" [headers]="headers" [data]="items" [compact]="true"></app-table>
+          </div>
+        </section>
+
+        <footer class="invoice-footer">
+          <div class="invoice-notes">
+            <p>Thank you for your business.</p>
+          </div>
+          <div class="invoice-totals">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>{{ data.invoiceTotal | currency }}</span>
+            </div>
+            @if (data.invoiceDiscountAmount) {
+              <div class="total-row discount-row">
+                <span>Discount</span>
+                <span>- {{ data.invoiceDiscountAmount | currency }}</span>
+              </div>
+            }
+            <div class="total-row grand-total-row">
+              <span>Grand Total</span>
+              <span>{{ data.grandTotal ?? data.invoiceTotal | currency }}</span>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
+
   </div>
 </mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <div class="footer-button-container">
-    <app-button [title]="'Print'" [style]="'style2'" (click)="print()"></app-button>
-    <app-button [title]="'Close'" (click)="close()"></app-button>
-  </div>
-</mat-dialog-actions>

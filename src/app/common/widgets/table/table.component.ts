@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { CurrencyPipe } from '../../pipes/currency.pipe';
 import { InputComponent } from "../input/input.component";
-import { RadioComponent } from "../radio/radio.component";
+import { SelectComponent } from "../select/select.component";
 
 @Component({
   selector: 'app-table',
-  imports: [CommonModule, FormsModule, InputComponent, CurrencyPipe, RadioComponent, MatIconModule],
+  imports: [CommonModule, FormsModule, InputComponent, CurrencyPipe, SelectComponent, MatIconModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -18,6 +18,7 @@ export class TableComponent implements OnInit, OnChanges
 
   @Input() headers: any[] = [];
   @Input() data: any[] = [];
+  @Input() compact = false;
 
   @Output() selectedData = new EventEmitter();
   @Output() selectedItems = new EventEmitter();

@@ -1,0 +1,39 @@
+select {
+  outline: none;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--bg-base);
+  border: 1px solid var(--border-color-strong);
+  font-size: 0.875rem;
+  height: 40px;
+  line-height: 24px;
+  padding: 8px 12px;
+  color: var(--text-color);
+  box-shadow: var(--shadow-sm);
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: auto;
+}
+
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-color-light);
+}
+
+select:hover:not(:focus):not(:disabled) {
+  border-color: var(--border-color-strong);
+}
+
+select:disabled {
+  background-color: var(--bg-muted);
+  color: var(--text-light);
+  cursor: not-allowed;
+}
+
+.select-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}

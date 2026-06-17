@@ -1,50 +1,59 @@
 .toaster-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-100%);
-    z-index: 10000;
-    padding: 10px 20px;
-    color: #fff;
-    border-radius: 20px;
-    font-size: 14px;
-    min-width: 150px;
-    text-align: center;
-    animation: slideDown 0.5s forwards;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  z-index: 10000;
+  padding: 12px 24px;
+  color: var(--text-color);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-width: 200px;
+  text-align: center;
+  animation: slideDown 0.5s forwards;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
 }
 
 .toaster-container.success {
-    background-color: green;
+  background-color: var(--success-bg);
+  border-color: #bbf7d0;
+  color: var(--success-color);
 }
 
 .toaster-container.error {
-    background-color: red;
+  background-color: var(--error-bg);
+  border-color: #fecaca;
+  color: var(--error-color);
 }
 
 .toaster-container.info {
-    background-color: blue;
+  background-color: var(--primary-color-light);
+  border-color: #c7d2fe;
+  color: var(--primary-color);
 }
 
 @keyframes slideDown {
-    from {
-        transform: translateX(-50%) translateY(-100%);
-        opacity: 0;
-    }
+  from {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
 
-    to {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-    from {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
 
-    to {
-        transform: translateX(-50%) translateY(-100%);
-        opacity: 0;
-    }
+  to {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
 }

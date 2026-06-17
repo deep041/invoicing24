@@ -1,16 +1,20 @@
 .dashboard-container {
-    min-height: 100vh;
-    display: flex;
+  min-height: 100vh;
+  display: flex;
+  background-color: var(--bg-subtle);
 }
 
 .dashboard-container .navigation-container {
-    width: 250px;
-    background-color: #f5f5f5;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 260px;
+  flex-shrink: 0;
+  background-color: var(--bg-base);
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .dashboard-container .content-container {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
+  flex: 1;
+  padding: 28px 32px;
+  background-color: var(--bg-subtle);
+  min-width: 0;
 }

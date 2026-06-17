@@ -15,12 +15,12 @@ import { DataService } from '../../common/services/data.service';
 import { ToastService } from '../../common/services/toast.service';
 import { ButtonComponent } from "../../common/widgets/button/button.component";
 import { InputComponent } from "../../common/widgets/input/input.component";
-import { RadioComponent } from "../../common/widgets/radio/radio.component";
+import { SelectComponent } from "../../common/widgets/select/select.component";
 import { TableComponent } from "../../common/widgets/table/table.component";
 
 @Component({
   selector: 'app-create-invoice',
-  imports: [CommonModule, TableComponent, ButtonComponent, RadioComponent, FormsModule, InputComponent, MatIconModule, CurrencyPipe],
+  imports: [CommonModule, TableComponent, ButtonComponent, SelectComponent, FormsModule, InputComponent, MatIconModule, CurrencyPipe],
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.scss'
 })
@@ -28,6 +28,7 @@ import { TableComponent } from "../../common/widgets/table/table.component";
 export class CreateInvoiceComponent implements OnInit
 {
 
+  activeTab: 'customer' | 'items' | 'review' = 'customer';
   selectedCustomer: any;
   companyDetails: any;
   selectedItems: any[] = [];
@@ -36,16 +37,16 @@ export class CreateInvoiceComponent implements OnInit
   discountOnTotal: number = 0;
   invoiceNumber: number = 0;
   headers = [
-    { label: 'Name', key: 'name' },
-    { label: 'HSN', key: 'hsnCode' },
-    { label: 'Price', key: 'price', align: 'right', isCurrency: true },
-    { label: 'Quantity', key: 'quantity', type: 'number', placeholder: 'Quantity', isNumberInput: true, width: '10%' },
-    { label: 'Amount', key: 'amount', align: 'right', isMultiplication: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity' },
-    { label: 'Discount Type', key: 'discountType', isRadioButton: true, options: data.discountType },
-    { label: 'Discount', key: 'discount', type: 'number', placeholder: 'Discount', isNumberInput: true, width: '10%' },
-    { label: 'Discount Amount', key: 'discountAmount', align: 'right', isDiscountAmount: true },
-    { label: 'Net Amount', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity' },
-    { label: '', key: 'delete', align: 'right', isDelete: true }
+    { label: 'Name', key: 'name', minWidth: '140px' },
+    { label: 'HSN', key: 'hsnCode', minWidth: '72px' },
+    { label: 'Price', key: 'price', align: 'right', isCurrency: true, minWidth: '80px' },
+    { label: 'Qty', key: 'quantity', type: 'number', placeholder: 'Qty', isNumberInput: true, minWidth: '80px' },
+    { label: 'Amount', key: 'amount', align: 'right', isMultiplication: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity', minWidth: '88px' },
+    { label: 'Disc. Type', key: 'discountType', isSelect: true, options: data.discountType, minWidth: '120px' },
+    { label: 'Disc.', key: 'discount', type: 'number', placeholder: 'Disc.', isNumberInput: true, minWidth: '80px' },
+    { label: 'Disc. Amt', key: 'discountAmount', align: 'right', isDiscountAmount: true, minWidth: '88px' },
+    { label: 'Net Amt', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity', minWidth: '88px' },
+    { label: '', key: 'delete', align: 'right', isDelete: true, minWidth: '44px', width: '44px' }
   ];
 
   constructor(private dialog: MatDialog, private apiService: ApiService, private router: Router, private toastService: ToastService, private dataService: DataService) { }
@@ -89,8 +90,8 @@ export class CreateInvoiceComponent implements OnInit
     {
       if (result)
       {
-        console.log(result);
         this.selectedCustomer = result;
+        this.activeTab = 'items';
       }
     });
   }
@@ -218,5 +219,50 @@ export class CreateInvoiceComponent implements OnInit
   generateButtonDisabled(): boolean
   {
     return !(this.selectedCustomer && this.selectedItems.length > 0 && this.selectedItems.every(item => item.quantity > 0));
+  }
+
+  get isReadyToGenerate(): boolean
+  {
+    return !this.generateButtonDisabled();
+  }
+
+  setTab(tab: 'customer' | 'items' | 'review'): void
+  {
+    if (this.canAccessTab(tab))
+    {
+      this.activeTab = tab;
+    }
+  }
+
+  canAccessTab(tab: 'customer' | 'items' | 'review'): boolean
+  {
+    if (tab === 'customer') return true;
+    if (tab === 'items') return !!this.selectedCustomer;
+    if (tab === 'review') return !!this.selectedCustomer && this.selectedItems.length > 0;
+    return false;
+  }
+
+  goNext(): void
+  {
+    if (this.activeTab === 'customer' && this.selectedCustomer)
+    {
+      this.activeTab = 'items';
+    }
+    else if (this.activeTab === 'items' && this.selectedItems.length > 0 && this.isReadyToGenerate)
+    {
+      this.activeTab = 'review';
+    }
+  }
+
+  goBack(): void
+  {
+    if (this.activeTab === 'review')
+    {
+      this.activeTab = 'items';
+    }
+    else if (this.activeTab === 'items')
+    {
+      this.activeTab = 'customer';
+    }
   }
 }

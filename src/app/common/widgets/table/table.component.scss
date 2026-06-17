@@ -1,57 +1,142 @@
+.table-scroll {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 table {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: inherit;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 14px;
+  padding: 12px 16px;
+  text-align: left;
+  background-color: var(--bg-muted);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
-td, th {
-    // border: 1px solid #ddd;
-    padding: 8px;
+td,
+th {
+  padding: 12px 16px;
 }
 
 td {
-    border-bottom: 1px solid #ddd;
-    font-size: 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  color: var(--text-color);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: var(--bg-subtle);
+}
+
+tr:hover td {
+  background-color: var(--primary-color-light);
 }
 
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 
 .active-status {
-    width: fit-content;
-    padding: 5px;
-    text-transform: capitalize;
-    border-radius: 5px;
-}
-
-.active-status {
-    background-color: #00800020;
-    color: #008000;
+  width: fit-content;
+  padding: 4px 10px;
+  text-transform: capitalize;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--success-bg);
+  color: var(--success-color);
 }
 
 .inactive-status {
-    background-color: #ff000020;
-    color: #ff0000;
+  background-color: var(--error-bg);
+  color: var(--error-color);
 }
 
 .mat-icon {
-    cursor: pointer;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--primary-color);
+  }
 }
 
 .mat-icon.delete {
-  color: #ff0000;
+  color: var(--text-light);
+
+  &:hover {
+    color: var(--error-color);
+  }
+}
+
+.table-scroll.compact {
+  table {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  th {
+    padding: 8px 10px;
+    font-size: 0.6875rem;
+  }
+
+  td {
+    padding: 6px 10px;
+    font-size: 0.8125rem;
+  }
+
+  .cell-name {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  app-input,
+  app-select {
+    display: block;
+  }
+
+  ::ng-deep app-input input {
+    height: 32px;
+    width: 72px;
+    min-width: 72px;
+    padding: 4px 8px;
+    font-size: 0.8125rem;
+    box-shadow: none;
+  }
+
+  ::ng-deep app-select select {
+    height: 32px;
+    width: 108px;
+    min-width: 108px;
+    padding: 4px 28px 4px 8px;
+    font-size: 0.8125rem;
+    box-shadow: none;
+  }
 }

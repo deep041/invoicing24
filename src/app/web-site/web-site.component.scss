@@ -1,14 +1,19 @@
+:host {
+  display: block;
+  background-color: var(--bg-subtle);
+  min-height: 100vh;
+}
+
 .nav-bar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px;
+    padding: 14px 24px;
     box-sizing: border-box;
-    border-bottom: 1px solid var(--secondary-color-light);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    background: var(--bg-base);
     position: fixed;
     z-index: 99;
 }
@@ -68,19 +73,20 @@
 }
 
 .nav-bar-container .login {
-    padding: 8px 16px;
+    padding: 8px 20px;
     border: 1px solid var(--primary-color);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.875rem;
     background-color: var(--primary-color);
     color: #fff;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .nav-bar-container .login:hover {
     color: var(--primary-color);
-    background-color: transparent;
+    background-color: var(--bg-base);
     cursor: pointer;
 }
 
@@ -93,11 +99,11 @@
 }
 
 .hero-container {
-    padding-top: 60px;
-    min-height: 350px;
+    padding-top: 80px;
+    min-height: 400px;
     display: flex;
     align-items: center;
-    // background-color: var(--secondary-color-light);
+    background-color: var(--bg-base);
 }
 
 .hero-container .hero-text {
@@ -199,10 +205,11 @@
 }
 
 .features-container {
-    padding: 70px 20px;
-    background-color: var(--secondary-color-light);
+    padding: 70px 24px;
+    background-color: var(--bg-muted);
     text-align: center;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
+    margin: 0 24px;
 }
 
 .features-container h2 {
@@ -217,21 +224,27 @@
 }
 
 .features-container .feature-boxes .feature-box {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-base);
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
     flex: 1;
     text-align: center;
+    transition: box-shadow 0.15s ease;
+
+    &:hover {
+        box-shadow: var(--shadow-md);
+    }
 }
 
 .features-container .feature-boxes .feature-box .feature-box-number {
     position: relative;
-    font-size: 24px;
-    font-weight: bold;
-    background-color: var(--primary-color);
-    color: #fff;
-    margin: 0 auto 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    margin: 0 auto 12px;
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -308,10 +321,11 @@
 }
 
 .about-us-container {
-    padding: 70px 20px;
-    background-color: var(--secondary-color-light);
+    padding: 70px 24px;
+    background-color: var(--bg-muted);
     text-align: center;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
+    margin: 40px 24px 0;
 }
 
 .about-us-container h2 {
@@ -359,13 +373,13 @@
 }
   
 .footer-container {
-    padding: 20px;
+    padding: 32px 24px;
     display: flex;
     width: 100%;
     align-items: flex-start;
-    border-top: 1px solid var(--secondary-color-light);
+    border-top: 1px solid var(--border-color);
     box-sizing: border-box;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-base);
 }
 
 .footer-container .app-details {
@@ -380,7 +394,7 @@
 
 .footer-container .app-details .sub-line {
     font-size: 12px;
-    color: grey;
+    color: var(--text-muted);
     margin-bottom: 10px;
 }
 
@@ -422,7 +436,7 @@
 
 .copyright {
     font-size: 12px;
-    color: grey;
+    color: var(--text-muted);
 }
 
 .heart {
@@ -462,15 +476,16 @@
     .mobile-menu {
         padding-top: 60px;
         padding-bottom: 20px;
-        // display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: fixed;
-        background: #FFF;
+        background: var(--bg-base);
         height: fit-content;
         z-index: 98;
         width: 100%;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-md);
     }
 
     .hero-container {

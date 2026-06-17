@@ -1,68 +1,233 @@
-<div class="invoice-container">
-  <div class="title-row">
-    <h2>Create Invoice</h2>
+<div class="invoice-container create-invoice-page">
+
+  <div class="page-header">
+    <div class="page-header-text">
+      <h2>Create Invoice</h2>
+      <p class="page-subtitle">Complete each step to build your invoice</p>
+    </div>
+    @if (invoiceNumber) {
+      <div class="invoice-badge">
+        <mat-icon>receipt_long</mat-icon>
+        <span>#{{ invoiceNumber }}</span>
+      </div>
+    }
   </div>
 
-  <div class="invoice-data">
-    <div class="data">
-      <div class="data-items-title-container">
-        <div class="title">Customer</div>
+  <nav class="invoice-tabs">
+    <button type="button" class="invoice-tab" [class.active]="activeTab === 'customer'"
+      [class.completed]="selectedCustomer" (click)="setTab('customer')">
+      <span class="tab-step">
+        @if (selectedCustomer) { <mat-icon>check</mat-icon> } @else { 1 }
+      </span>
+      <span class="tab-label">Customer</span>
+    </button>
+    <button type="button" class="invoice-tab" [class.active]="activeTab === 'items'"
+      [class.completed]="selectedItems.length > 0" [class.disabled]="!canAccessTab('items')"
+      [disabled]="!canAccessTab('items')" (click)="setTab('items')">
+      <span class="tab-step">
+        @if (selectedItems.length > 0) { <mat-icon>check</mat-icon> } @else { 2 }
+      </span>
+      <span class="tab-label">Items</span>
+    </button>
+    <button type="button" class="invoice-tab" [class.active]="activeTab === 'review'"
+      [class.completed]="isReadyToGenerate" [class.disabled]="!canAccessTab('review')"
+      [disabled]="!canAccessTab('review')" (click)="setTab('review')">
+      <span class="tab-step">
+        @if (isReadyToGenerate) { <mat-icon>check</mat-icon> } @else { 3 }
+      </span>
+      <span class="tab-label">Review</span>
+    </button>
+  </nav>
 
-        @if (selectedCustomer) {
-        <div><app-button [title]="'Change Customer'" (click)="selectCustomer()"></app-button> </div>
-        }
-      </div>
-      <div class="value" *ngIf="!selectedCustomer" (click)="selectCustomer()">Select Customer</div>
-      <div class="value" *ngIf="selectedCustomer"><b> {{ selectedCustomer.name }}</b></div>
-      <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false"
-          aria-label="Example home icon" fontIcon="phone"></mat-icon> {{ selectedCustomer.contactNo }}</div>
-      <div class="value" *ngIf="selectedCustomer"><mat-icon class="mat-icon" aria-hidden="false"
-          aria-label="Example home icon" fontIcon="location_on"></mat-icon> {{ selectedCustomer.address }}</div>
-      <div class="value" *ngIf="selectedCustomer && selectedCustomer.stateCode"><span>State: </span> {{
-        selectedCustomer.stateCode }}</div>
-      <div class="value" *ngIf="selectedCustomer && selectedCustomer.gstNo"><span>GST No.: </span> {{
-        selectedCustomer.gstNo }}</div>
-    </div>
+  <div class="tab-panel">
 
-    <div class="data items">
-      <div class="data-items-title-container">
-        <div class="title">
-          Items
+    @if (activeTab === 'customer') {
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title-group">
+            <div class="section-icon"><mat-icon>person_outline</mat-icon></div>
+            <div>
+              <h3 class="section-title">Customer</h3>
+              <p class="section-desc">Who is this invoice for?</p>
+            </div>
+          </div>
+          @if (selectedCustomer) {
+            <app-button [title]="'Change'" [style]="'style2'" (click)="selectCustomer()"></app-button>
+          }
         </div>
 
-        @if (selectedItems.length) {
-        <div><app-button [title]="'+ Add Items'" (click)="selectItems()"></app-button> </div>
+        @if (!selectedCustomer) {
+          <button type="button" class="empty-state" (click)="selectCustomer()">
+            <div class="empty-state-icon"><mat-icon>person_add</mat-icon></div>
+            <div class="empty-state-text">
+              <span class="empty-state-title">Select a customer</span>
+              <span class="empty-state-hint">Choose from your saved customers or add a new one</span>
+            </div>
+            <mat-icon class="empty-state-arrow">chevron_right</mat-icon>
+          </button>
+        } @else {
+          <div class="customer-card">
+            <div class="customer-avatar">{{ selectedCustomer.name[0] }}</div>
+            <div class="customer-details">
+              <div class="customer-name">{{ selectedCustomer.name }}</div>
+              <div class="customer-info-grid">
+                <div class="customer-info-item">
+                  <mat-icon>phone</mat-icon><span>{{ selectedCustomer.contactNo }}</span>
+                </div>
+                <div class="customer-info-item">
+                  <mat-icon>location_on</mat-icon><span>{{ selectedCustomer.address }}</span>
+                </div>
+                @if (selectedCustomer.stateCode) {
+                  <div class="customer-info-item">
+                    <mat-icon>map</mat-icon><span>State: {{ selectedCustomer.stateCode }}</span>
+                  </div>
+                }
+                @if (selectedCustomer.gstNo) {
+                  <div class="customer-info-item">
+                    <mat-icon>badge</mat-icon><span>GST: {{ selectedCustomer.gstNo }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
         }
-      </div>
-      <div class="value" *ngIf="!selectedItems.length" (click)="selectItems()">Select Items</div>
-      <div *ngIf="selectedItems.length">
-        <app-table [headers]="headers" [data]="selectedItems" (deleteRow)="deleteRow($event)"></app-table>
-      </div>
-    </div>
+      </section>
+    }
 
-    <div class="total-container" *ngIf="selectedItems.length">
-      <div class="total">
-        <span>Total:</span> {{ countTotal() | currency }}
-      </div>
-      <div class="discount">
-        <span>Discount on total:</span>
-        <div class="discount-type">
-          <app-radio [name]="'Discount on total'" [options]="discountOptions"
-            [(ngModel)]="discountOnTotalType"></app-radio>
-          <app-input [(ngModel)]="discountOnTotal" [type]="'number'"
-            [max]="(discountOnTotalType === 'percentage') ? 100 : null"></app-input>
+    @if (activeTab === 'items') {
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title-group">
+            <div class="section-icon"><mat-icon>inventory_2</mat-icon></div>
+            <div>
+              <h3 class="section-title">Items</h3>
+              <p class="section-desc">Add products or services to this invoice</p>
+            </div>
+          </div>
+          @if (selectedItems.length) {
+            <app-button [title]="'+ Add More'" (click)="selectItems()"></app-button>
+          }
         </div>
+
+        @if (!selectedItems.length) {
+          <button type="button" class="empty-state" (click)="selectItems()">
+            <div class="empty-state-icon"><mat-icon>add_shopping_cart</mat-icon></div>
+            <div class="empty-state-text">
+              <span class="empty-state-title">Add items</span>
+              <span class="empty-state-hint">Select items from your catalogue</span>
+            </div>
+            <mat-icon class="empty-state-arrow">chevron_right</mat-icon>
+          </button>
+        } @else {
+          <div class="items-table-wrapper">
+            <app-table [headers]="headers" [data]="selectedItems" [compact]="true"
+              (deleteRow)="deleteRow($event)"></app-table>
+          </div>
+          @if (!isReadyToGenerate) {
+            <div class="items-hint">
+              <mat-icon>info_outline</mat-icon>
+              <span>Enter quantity for each item before continuing to review</span>
+            </div>
+          }
+        }
+      </section>
+    }
+
+    @if (activeTab === 'review') {
+      <div class="review-layout">
+        <section class="section-card review-section">
+          <div class="section-header">
+            <div class="section-title-group">
+              <div class="section-icon"><mat-icon>fact_check</mat-icon></div>
+              <div>
+                <h3 class="section-title">Review Invoice</h3>
+                <p class="section-desc">Confirm details before generating</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-block">
+            <div class="review-block-header">
+              <span class="review-block-title">Customer</span>
+              <button type="button" class="review-edit-link" (click)="setTab('customer')">Edit</button>
+            </div>
+            @if (selectedCustomer) {
+              <div class="customer-card compact">
+                <div class="customer-avatar">{{ selectedCustomer.name[0] }}</div>
+                <div class="customer-details">
+                  <div class="customer-name">{{ selectedCustomer.name }}</div>
+                  <div class="customer-info-item">
+                    <mat-icon>phone</mat-icon><span>{{ selectedCustomer.contactNo }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="review-block">
+            <div class="review-block-header">
+              <span class="review-block-title">Items ({{ selectedItems.length }})</span>
+              <button type="button" class="review-edit-link" (click)="setTab('items')">Edit</button>
+            </div>
+            <div class="items-table-wrapper">
+              <app-table [headers]="headers" [data]="selectedItems" [compact]="true"
+              (deleteRow)="deleteRow($event)"></app-table>
+            </div>
+          </div>
+        </section>
+
+        <aside class="summary-card">
+          <h3 class="summary-title">Invoice Summary</h3>
+
+          <div class="summary-totals">
+            <div class="summary-row total-row">
+              <span class="summary-label">Subtotal</span>
+              <span class="summary-value amount">{{ countTotal() | currency }}</span>
+            </div>
+
+            <div class="discount-section">
+              <label class="discount-label">Discount on total</label>
+              <div class="discount-controls">
+                <app-select [options]="discountOptions" [(ngModel)]="discountOnTotalType"></app-select>
+                <app-input [(ngModel)]="discountOnTotal" [type]="'number'"
+                  [max]="(discountOnTotalType === 'percentage') ? 100 : null"
+                  [placeholder]="discountOnTotalType === 'percentage' ? '0 %' : '0'"></app-input>
+              </div>
+            </div>
+
+            <div class="summary-row grand-total-row">
+              <span class="summary-label">Grand Total</span>
+              <span class="summary-value grand-total">{{ countTotalAfterDiscount() | currency }}</span>
+            </div>
+          </div>
+
+          <div class="summary-actions">
+            <app-button [title]="'Preview Invoice'" [style]="'style2'" (click)="preview()"
+              [disabled]="!isReadyToGenerate"></app-button>
+            <app-button [title]="'Generate Invoice'" (click)="generate()"
+              [disabled]="!isReadyToGenerate"></app-button>
+          </div>
+        </aside>
       </div>
-      <div class="total">
-        <span>Grand Total:</span> {{ countTotalAfterDiscount() | currency }}
-      </div>
-    </div>
+    }
+
   </div>
 
-  <div class="footer-button-container">
-    <app-button [title]="'Preview'" [style]="'style2'" (click)="preview()"
-      [disabled]="!selectedCustomer || !selectedItems"></app-button>
-    <app-button [title]="'Generate'" (click)="generate()"
-      [disabled]="!selectedCustomer || !selectedItems || generateButtonDisabled()"></app-button>
-  </div>
+  @if (activeTab !== 'review') {
+    <div class="tab-footer">
+      @if (activeTab !== 'customer') {
+        <app-button [title]="'Back'" [style]="'style2'" (click)="goBack()"></app-button>
+      }
+      <div class="tab-footer-spacer"></div>
+      @if (activeTab === 'customer') {
+        <app-button [title]="'Continue to Items'" (click)="goNext()"
+          [disabled]="!selectedCustomer"></app-button>
+      }
+      @if (activeTab === 'items') {
+        <app-button [title]="'Continue to Review'" (click)="goNext()"
+          [disabled]="!selectedItems.length || !isReadyToGenerate"></app-button>
+      }
+    </div>
+  }
+
 </div>

@@ -1,1 +1,8 @@
-<p>select works!</p>
+@if (label) {
+  <div class="select-label">{{ label }}</div>
+}
+<select [disabled]="disabled" [(ngModel)]="value" (ngModelChange)="handleChange()">
+  @for (option of options; track option.value) {
+    <option [value]="option.value">{{ option.label }}</option>
+  }
+</select>
