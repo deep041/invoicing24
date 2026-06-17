@@ -1,0 +1,32 @@
+# Invoicing24 Frontend Rules
+
+Tech Stack:
+- Angular 19
+- TypeScript
+- Angular Material
+- Reactive Forms
+- RxJS
+- Standalone Components
+
+Rules:
+- Use standalone components only.
+- Prefer Angular Signals for local state.
+- Use Reactive Forms instead of Template Driven Forms.
+- Follow Angular style guide.
+- Use strongly typed interfaces.
+- Avoid using any type.
+- Use OnPush change detection when possible.
+- Keep business logic inside services.
+- Use Angular Material components.
+- Follow existing folder structure.
+- Create reusable shared components when duplication is detected.
+- Use RxJS operators instead of nested subscriptions.
+- Add proper error handling for API calls.
+- Generate clean and maintainable code.
+- Do not modify unrelated files.
+
+Code Style:
+- Use meaningful variable names.
+- Add comments only when business logic is complex.
+- Keep functions small and focused.
+- Prefer readonly properties where possible.

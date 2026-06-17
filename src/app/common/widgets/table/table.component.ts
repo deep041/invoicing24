@@ -1,43 +1,60 @@
-import { CommonModule, CurrencyPipe, JsonPipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { CurrencyPipe } from '../../pipes/currency.pipe';
 import { InputComponent } from "../input/input.component";
 import { RadioComponent } from "../radio/radio.component";
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-table',
-    imports: [CommonModule, FormsModule, InputComponent, CurrencyPipe, RadioComponent, MatIconModule],
-    templateUrl: './table.component.html',
-    styleUrl: './table.component.scss'
+  selector: 'app-table',
+  imports: [CommonModule, FormsModule, InputComponent, CurrencyPipe, RadioComponent, MatIconModule],
+  templateUrl: './table.component.html',
+  styleUrl: './table.component.scss'
 })
 
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges
+{
 
-    @Input() headers: any[] = [];
-    @Input() data: any[] = [];
+  @Input() headers: any[] = [];
+  @Input() data: any[] = [];
 
-    @Output() selectedData = new EventEmitter();
-    @Output() selectedItems = new EventEmitter();
-    @Output() edit = new EventEmitter();
-    @Output() view = new EventEmitter();
+  @Output() selectedData = new EventEmitter();
+  @Output() selectedItems = new EventEmitter();
+  @Output() edit = new EventEmitter();
+  @Output() view = new EventEmitter();
+  @Output() deleteRow = new EventEmitter();
 
-    keys: string[] = [];
+  keys: string[] = [];
 
-    constructor() {}
+  constructor() { }
 
-    ngOnInit(): void {
-        if (this.data.length > 0) {
-            this.keys = Object.keys(this.data[0]);
-        }
+  ngOnInit(): void
+  {
+    console.log('table data :', this.data);
+    if (this.data.length > 0)
+    {
+      this.keys = Object.keys(this.data[0]);
     }
+  }
 
-    rowSelected(data: any) {
-        this.selectedData.emit(data);
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    if (changes['data'])
+    {
+      console.log('table data :', this.data);
+      // this.data = this.data;
     }
+  }
 
-    itemSelected() {
-        let selectedData = JSON.parse(JSON.stringify(this.data.filter((data: any) => data.checkbox)));
-        this.selectedItems.emit(selectedData);
-    }
+  rowSelected(data: any)
+  {
+    this.selectedData.emit(data);
+  }
+
+  itemSelected()
+  {
+    let selectedData = JSON.parse(JSON.stringify(this.data.filter((data: any) => data.checkbox)));
+    this.selectedItems.emit(selectedData);
+  }
 }

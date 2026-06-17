@@ -1,40 +1,46 @@
 <mat-dialog-content class="mat-typography">
-    <div class="invoice-preview-container" id="print-section">
-        <div class="invoice-preview-title">
-            <h2>Invoice</h2>
-            <div class="invoice-number"> Invoice No: <b>#{{invoiceNumber}}</b></div>
-        </div>
-    
-        <div class="invoice-bill-details">
-            <div class="bill-to">
-                <h3>Bill To:</h3>
-                <p class="name">{{ customerDetails.name }}</p>
-                <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="phone"></mat-icon> {{ customerDetails.contactNo }}</p>
-                <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="location_on"></mat-icon> {{ customerDetails.address }}</p>
-            </div>
-    
-            <div class="bill-from">
-                <h3>From:</h3>
-                <p class="name">{{ companyDetails.name }}</p>
-                <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="phone"></mat-icon> {{ companyDetails.contactNo }}</p>
-                <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="location_on"></mat-icon> {{ companyDetails.address }}</p>
-            </div>
-        </div>
-    
-        <div class="invoice-date">Date: <b>{{ date | date: 'dd MMMM y' }}</b></div>
-    
-        <div class="invoice-items">
-            <app-table *ngIf="items" [headers]="headers" [data]="items"></app-table>
-            <div class="invoice-total first"><span>Total:</span> {{ data.invoiceTotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</div>
-            <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Discount Amount:</span> {{ data.invoiceDiscountAmount | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</div>
-            <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Grand Total:</span> {{ data.grandTotal | currency: 'INR' : 'symbol-narrow' : '1.2-2' : 'en-IN' }}</div>
-        </div>
+  <div class="invoice-preview-container" id="print-section">
+    <div class="invoice-preview-title">
+      <h2>Invoice</h2>
+      <div class="invoice-number"> Invoice No: <b>#{{invoiceNumber}}</b></div>
     </div>
+
+    <div class="invoice-bill-details">
+      <div class="bill-to">
+        <h3>Bill To:</h3>
+        <p class="name">{{ customerDetails.name }}</p>
+        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+            fontIcon="phone"></mat-icon> {{ customerDetails.contactNo }}</p>
+        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+            fontIcon="location_on"></mat-icon> {{ customerDetails.address }}</p>
+      </div>
+
+      <div class="bill-from">
+        <h3>From:</h3>
+        <p class="name">{{ companyDetails.name }}</p>
+        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+            fontIcon="phone"></mat-icon> {{ companyDetails.contactNo }}</p>
+        <p class="details"><mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+            fontIcon="location_on"></mat-icon> {{ companyDetails.address }}</p>
+      </div>
+    </div>
+
+    <div class="invoice-date">Date: <b>{{ date | date: 'dd MMMM y' }}</b></div>
+
+    <div class="invoice-items">
+      <app-table *ngIf="items" [headers]="headers" [data]="items"></app-table>
+      <div class="invoice-total first"><span>Total:</span> {{ data.invoiceTotal | currency }}</div>
+      <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Discount Amount:</span> {{
+        data.invoiceDiscountAmount | currency }}</div>
+      <div class="invoice-total" *ngIf="data.invoiceDiscountAmount"><span>Grand Total:</span>
+        {{ data.grandTotal | currency }}</div>
+    </div>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <div class="footer-button-container">
-        <app-button [title]="'Print'" [style]="'style2'" (click)="print()"></app-button>
-        <app-button [title]="'Close'" (click)="close()"></app-button>
-    </div>
+  <div class="footer-button-container">
+    <app-button [title]="'Print'" [style]="'style2'" (click)="print()"></app-button>
+    <app-button [title]="'Close'" (click)="close()"></app-button>
+  </div>
 </mat-dialog-actions>

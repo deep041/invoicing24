@@ -12,7 +12,7 @@ th {
     color: white;
     font-size: 14px;
 }
-  
+
 td, th {
     // border: 1px solid #ddd;
     padding: 8px;
@@ -50,4 +50,8 @@ tr:nth-child(even) {
 
 .mat-icon {
     cursor: pointer;
+}
+
+.mat-icon.delete {
+  color: #ff0000;
 }
