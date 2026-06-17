@@ -410,18 +410,3 @@
 @media screen and (max-width: 1100px) {
   .review-layout { grid-template-columns: 1fr; }
 }
-
-@media screen and (max-width: 640px) {
-  .create-invoice-page .page-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .invoice-tabs { grid-template-columns: 1fr; }
-
-  .invoice-tab { justify-content: flex-start; }
-
-  .section-card { padding: 16px; }
-  .customer-card { flex-direction: column; align-items: center; text-align: center; }
-  .customer-info-grid { grid-template-columns: 1fr; }
-}

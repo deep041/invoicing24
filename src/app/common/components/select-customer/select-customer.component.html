@@ -5,5 +5,11 @@
 
     <div class="customer-list-body">
         <app-table [headers]="headers" [data]="customerData" (selectedData)="selectCustomer($event)"> </app-table>
+        <app-pagination
+            [pageIndex]="pageIndex"
+            [pageSize]="pageSize"
+            [totalItems]="totalItems"
+            (pageChange)="onPageChange($event)">
+        </app-pagination>
     </div>
 </div>

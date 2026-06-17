@@ -140,3 +140,32 @@ tr:hover td {
     box-shadow: none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  th,
+  td {
+    padding: 10px 12px;
+    font-size: 0.8125rem;
+  }
+
+  th {
+    font-size: 0.6875rem;
+  }
+
+  .table-scroll.compact {
+    th,
+    td {
+      padding: 6px 8px;
+    }
+
+    ::ng-deep app-input input {
+      width: 64px;
+      min-width: 64px;
+    }
+
+    ::ng-deep app-select select {
+      width: 96px;
+      min-width: 96px;
+    }
+  }
+}

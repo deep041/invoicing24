@@ -11,8 +11,24 @@
 .input-group {
     display: flex;
     justify-content: space-between;
+    gap: 15px;
 }
 
 .input-group app-input {
     width: 49%;
+}
+
+@media screen and (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group app-input {
+        width: 100%;
+    }
+
+    .footer-button-container app-button {
+        display: block;
+        width: 100%;
+    }
 }

@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    margin-top: 16px;
+}
+
+mat-paginator {
+    background: transparent;
+    border-top: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 768px) {
+    :host ::ng-deep .mat-mdc-paginator-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px 4px;
+        min-height: auto;
+    }
+
+    :host ::ng-deep .mat-mdc-paginator-page-size {
+        margin-right: 0;
+    }
+
+    :host ::ng-deep .mat-mdc-paginator-range-label {
+        margin: 0 8px;
+        font-size: 0.75rem;
+    }
+}

@@ -6,6 +6,12 @@
     <mat-dialog-content class="mat-typography">
         <div class="items-list-body">
             <app-table *ngIf="items" [headers]="headers" [data]="items" (selectedItems)="selectItems($event)"></app-table>
+            <app-pagination
+                [pageIndex]="pageIndex"
+                [pageSize]="pageSize"
+                [totalItems]="totalItems"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
         </div>
     </mat-dialog-content>
 

@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from "./navigation/navigation.component";
-import { AuthenticationRoutingModule } from "../authentication/authentication-routing.module";
-import { ApiService } from '../common/services/api.service';
-import { Dashboard } from './dashboard.interface';
 
 @Component({
     selector: 'app-dashboard',
-    imports: [NavigationComponent, AuthenticationRoutingModule],
+    imports: [NavigationComponent, RouterOutlet, MatIconModule],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss'
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-    constructor() {}
+    sidebarOpen = signal(false);
 
-    ngOnInit(): void {
+    toggleSidebar(): void {
+        this.sidebarOpen.update(open => !open);
     }
 
-    
-
+    closeSidebar(): void {
+        this.sidebarOpen.set(false);
+    }
 }

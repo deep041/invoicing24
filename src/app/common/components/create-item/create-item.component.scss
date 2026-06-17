@@ -22,3 +22,13 @@
     display: flex;
     gap: 10px;
 }
+
+@media screen and (max-width: 768px) {
+    .footer-buttons {
+        flex-direction: column;
+
+        app-button {
+            width: 100%;
+        }
+    }
+}

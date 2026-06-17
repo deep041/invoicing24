@@ -7,5 +7,11 @@
 
     <div class="customer-list">
         <app-table *ngIf="customerData" [headers]="headers" [data]="customerData" (edit)="createCustomer($event)"></app-table>
+        <app-pagination
+            [pageIndex]="pageIndex"
+            [pageSize]="pageSize"
+            [totalItems]="totalItems"
+            (pageChange)="onPageChange($event)">
+        </app-pagination>
     </div>
 </div>

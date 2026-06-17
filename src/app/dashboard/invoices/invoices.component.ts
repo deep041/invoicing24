@@ -5,10 +5,12 @@ import { AuthenticationRoutingModule } from "../../authentication/authentication
 import { ApiService } from '../../common/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoicePreviewComponent } from '../../common/components/invoice-preview/invoice-preview.component';
+import { PaginationComponent } from '../../common/widgets/pagination/pagination.component';
+import { PaginationMeta } from '../../common/interfaces/pagination.interface';
 
 @Component({
     selector: 'app-invoices',
-    imports: [TableComponent, ButtonComponent, AuthenticationRoutingModule],
+    imports: [TableComponent, ButtonComponent, AuthenticationRoutingModule, PaginationComponent],
     templateUrl: './invoices.component.html',
     styleUrl: './invoices.component.scss'
 })
@@ -17,6 +19,9 @@ export class InvoicesComponent implements OnInit {
 
     headers = [{ label: 'Number', key: 'invoiceNumber' }, { label: 'Date', key: 'invoiceDate', isDate: true }, { label: 'Customer', key: 'customerName' }, { label: 'Total', key: 'grandTotal', align: 'right', isCurrency: true }, { label: 'View', key: 'view', align: 'right', isViewIcon: true }];
     invoices: any[] = [];
+    pageIndex = 0;
+    pageSize = 10;
+    totalItems = 0;
 
     constructor(private apiService: ApiService, private dialog: MatDialog) {}
 
@@ -24,12 +29,23 @@ export class InvoicesComponent implements OnInit {
         this.getInvoices();
     }
 
-    getInvoices() {
-        this.apiService.getInvoices().subscribe((res: any) => {
+    getInvoices(page = 1, limit = this.pageSize) {
+        this.apiService.getInvoices({ page, limit }).subscribe((res: any) => {
             if (res && res.success) {
-                this.invoices = res.data;
+                this.invoices = res.data.items;
+                this.applyPagination(res.data.pagination);
             }
         });
+    }
+
+    onPageChange(event: { page: number; limit: number }) {
+        this.getInvoices(event.page, event.limit);
+    }
+
+    private applyPagination(pagination: PaginationMeta) {
+        this.pageIndex = pagination.page - 1;
+        this.pageSize = pagination.limit;
+        this.totalItems = pagination.total;
     }
 
     viewInvoice(invoiceData: any) { 

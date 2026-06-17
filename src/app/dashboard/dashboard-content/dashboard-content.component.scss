@@ -92,4 +92,23 @@
   .dashboard-top-boxes {
     grid-template-columns: 1fr;
   }
+
+  .dashboard-top-boxes .dashboard-box {
+    padding: 16px;
+  }
+
+  .chart-container {
+    margin-top: 16px;
+  }
+
+  .chart-container .bar-chart {
+    height: 220px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-top-boxes .dashboard-box-count {
+    font-size: 1.25rem;
+  }
 }

@@ -13,3 +13,13 @@
 .customer-list-container .customer-list-body {
     padding: 10px;
 }
+
+@media screen and (max-width: 768px) {
+    .customer-list-container .customer-list-title {
+        padding: 8px;
+    }
+
+    .customer-list-container .customer-list-body {
+        padding: 8px 4px;
+    }
+}

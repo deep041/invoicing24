@@ -5,10 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateCustomerComponent } from '../../common/components/create-customer/create-customer.component';
 import { ApiService } from '../../common/services/api.service';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from '../../common/widgets/pagination/pagination.component';
+import { PaginationMeta } from '../../common/interfaces/pagination.interface';
 
 @Component({
     selector: 'app-customers',
-    imports: [TableComponent, ButtonComponent, CommonModule],
+    imports: [TableComponent, ButtonComponent, CommonModule, PaginationComponent],
     templateUrl: './customers.component.html',
     styleUrl: './customers.component.scss'
 })
@@ -17,6 +19,9 @@ export class CustomersComponent implements OnInit {
 
     headers = [{ label: 'Name', key: 'name' }, { label: 'Contact No.', key: 'contactNo' }, { label: 'Address', key: 'address' }, { label: 'Edit', key: 'edit', isEdit: true }];
     customerData: any[] = [];
+    pageIndex = 0;
+    pageSize = 10;
+    totalItems = 0;
 
     constructor(private dialog: MatDialog, private apiService: ApiService) {}
 
@@ -24,17 +29,26 @@ export class CustomersComponent implements OnInit {
         this.getCustomers();
     }
 
-    getCustomers() {
-        this.apiService.getCustomers().subscribe((response: any) => {
+    getCustomers(page = 1, limit = this.pageSize) {
+        this.apiService.getCustomers({ page, limit }).subscribe((response: any) => {
             if (response && response.success) {
-                console.log('data', response);
-                this.customerData = response.data;
+                this.customerData = response.data.items;
+                this.applyPagination(response.data.pagination);
             }
-        })
+        });
+    }
+
+    onPageChange(event: { page: number; limit: number }) {
+        this.getCustomers(event.page, event.limit);
+    }
+
+    private applyPagination(pagination: PaginationMeta) {
+        this.pageIndex = pagination.page - 1;
+        this.pageSize = pagination.limit;
+        this.totalItems = pagination.total;
     }
 
     createCustomer(data: any = null) {
-        console.log('Customer Data => ', data)
         let dialogRef = this.dialog.open(CreateCustomerComponent, {
             width: '500px',
             height: '400px',
@@ -43,8 +57,8 @@ export class CustomersComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.getCustomers();
+                this.getCustomers(this.pageIndex + 1, this.pageSize);
             }
-        })
+        });
     }
 }

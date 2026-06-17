@@ -33,3 +33,20 @@
     width: 48%;
 }
 
+@media screen and (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group app-input {
+        width: 100%;
+    }
+
+    .footer-buttons {
+        flex-direction: column;
+
+        app-button {
+            width: 100%;
+        }
+    }
+}

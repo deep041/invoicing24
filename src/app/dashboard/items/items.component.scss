@@ -1,1 +1,8 @@
 /* title-row styles inherited from global styles.scss */
+
+@media screen and (max-width: 768px) {
+  :host {
+    display: block;
+    overflow-x: hidden;
+  }
+}

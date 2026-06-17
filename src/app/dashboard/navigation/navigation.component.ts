@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { DataService } from '../../common/services/data.service';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -10,23 +10,21 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrl: './navigation.component.scss'
 })
 
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
+
+    navItemClick = output<void>();
 
     constructor(private router: Router, public dataService: DataService) {}
 
-    ngOnInit(): void {
-        console.log(this.router.url);
-    }
-
-    navigate(route: string) {
-        this.router.navigate([route]);
+    onNavClick(): void {
+        this.navItemClick.emit();
     }
 
     isActive(paths: string[]): boolean {
         return paths.some(p => this.router.url.startsWith(p));
     }
 
-    logout() {
+    logout(): void {
         localStorage.clear();
         this.router.navigate(['authentication/login']);
     }

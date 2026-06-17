@@ -1,8 +1,17 @@
-<div class="dashboard-container">
+<div class="dashboard-container" [class.sidebar-open]="sidebarOpen()">
+    <div class="sidebar-backdrop" (click)="closeSidebar()" aria-hidden="true"></div>
+
     <div class="navigation-container">
-        <app-navigation></app-navigation>
+        <app-navigation (navItemClick)="closeSidebar()"></app-navigation>
     </div>
+
     <div class="content-container">
+        <header class="mobile-header">
+            <button type="button" class="mobile-menu-btn" (click)="toggleSidebar()" aria-label="Open navigation menu">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="mobile-header-title">Invoicing24</span>
+        </header>
         <router-outlet></router-outlet>
     </div>
 </div>
