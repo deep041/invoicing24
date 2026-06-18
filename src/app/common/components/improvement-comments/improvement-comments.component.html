@@ -1,0 +1,92 @@
+<div class="dialog-header" mat-dialog-title>
+  <div class="dialog-header-main">
+    <div class="dialog-icon">
+      <mat-icon>forum</mat-icon>
+    </div>
+    <div class="dialog-header-text">
+      <h2>{{ improvement.title }}</h2>
+      <div class="dialog-meta">
+        <span class="status-badge" [ngClass]="getStatusClass(improvement.status)">
+          {{ getStatusLabel(improvement.status) }}
+        </span>
+        <span class="comment-count-meta">
+          <mat-icon>chat_bubble_outline</mat-icon>
+          {{ comments.length }} comment{{ comments.length === 1 ? '' : 's' }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  @if (improvement.description) {
+    <div class="improvement-summary">
+      <mat-icon>info_outline</mat-icon>
+      <p>{{ improvement.description }}</p>
+    </div>
+  }
+
+  <section class="comments-panel">
+    <div class="comments-panel-header">
+      <h3>Discussion</h3>
+    </div>
+
+    <div class="comments-panel-body" [class.is-loading]="isLoading">
+      @if (isLoading) {
+        <div class="comments-state">
+          <mat-icon>hourglass_empty</mat-icon>
+          <span>Loading comments…</span>
+        </div>
+      } @else if (!comments.length) {
+        <div class="comments-state">
+          <mat-icon>chat_bubble_outline</mat-icon>
+          <span class="comments-state-title">No comments yet</span>
+          <span class="comments-state-hint">Start the conversation below</span>
+        </div>
+      } @else {
+        <div class="comment-list">
+          @for (comment of comments; track comment._id) {
+            <article class="comment-item">
+              <div class="comment-avatar">{{ getAuthorInitial(comment) }}</div>
+              <div class="comment-body">
+                <div class="comment-header">
+                  <span class="comment-author">{{ comment.userName || 'User' }}</span>
+                  @if (comment.createdAt) {
+                    <span class="comment-date">{{ comment.createdAt | date: 'medium' }}</span>
+                  }
+                </div>
+                <p class="comment-text">{{ comment.text }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="add-comment-panel">
+    <div class="add-comment-header">
+      <mat-icon>edit_note</mat-icon>
+      <span>Add your comment</span>
+    </div>
+    <app-textarea
+      [(ngModel)]="newComment"
+      [placeholder]="'Share your thoughts or suggestions…'"
+      [label]="'Your comment'">
+    </app-textarea>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="dialog-footer">
+    <app-button [title]="'Close'" [style]="'style2'" (click)="close()"></app-button>
+    <app-button
+      [title]="isSubmitting ? 'Posting…' : 'Post Comment'"
+      (click)="submitComment()"
+      [disabled]="!newComment.trim() || isSubmitting">
+    </app-button>
+  </div>
+</mat-dialog-actions>

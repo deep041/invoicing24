@@ -14,7 +14,8 @@
     gap: 15px;
 }
 
-.input-group app-input {
+.input-group app-input,
+.input-group app-select {
     width: 49%;
 }
 
@@ -23,7 +24,8 @@
         flex-direction: column;
     }
 
-    .input-group app-input {
+    .input-group app-input,
+    .input-group app-select {
         width: 100%;
     }
 

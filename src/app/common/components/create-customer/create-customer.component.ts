@@ -5,10 +5,12 @@ import { ButtonComponent } from "../../widgets/button/button.component";
 import { TextareaComponent } from "../../widgets/textarea/textarea.component";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { SelectComponent } from '../../widgets/select/select.component';
+import data from '../../../../assets/data.json';
 
 @Component({
     selector: 'app-create-customer',
-    imports: [InputComponent, MatDialogActions, ButtonComponent, MatDialogContent, TextareaComponent, FormsModule, ReactiveFormsModule],
+    imports: [InputComponent, MatDialogActions, ButtonComponent, MatDialogContent, TextareaComponent, FormsModule, ReactiveFormsModule, SelectComponent],
     templateUrl: './create-customer.component.html',
     styleUrl: './create-customer.component.scss'
 })
@@ -16,6 +18,10 @@ import { ApiService } from '../../services/api.service';
 export class CreateCustomerComponent implements OnInit {
 
     customerForm!: FormGroup;
+    stateOptions = [
+        { label: 'Select State', value: '' },
+        ...data.states.map((state) => ({ label: state.name, value: state.code }))
+    ];
 
     constructor(private fb: FormBuilder, private apiService: ApiService, private dialogRef: MatDialogRef<CreateCustomerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 

@@ -195,6 +195,27 @@
               </div>
             </div>
 
+            <div class="summary-row">
+              <span class="summary-label">Taxable Amount</span>
+              <span class="summary-value amount">{{ getGstSummary().taxableAmount | currency }}</span>
+            </div>
+
+            @if (getGstSummary().isInterState) {
+              <div class="summary-row">
+                <span class="summary-label">IGST</span>
+                <span class="summary-value amount">{{ getGstSummary().igstAmount | currency }}</span>
+              </div>
+            } @else {
+              <div class="summary-row">
+                <span class="summary-label">CGST</span>
+                <span class="summary-value amount">{{ getGstSummary().cgstAmount | currency }}</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">SGST</span>
+                <span class="summary-value amount">{{ getGstSummary().sgstAmount | currency }}</span>
+              </div>
+            }
+
             <div class="summary-row grand-total-row">
               <span class="summary-label">Grand Total</span>
               <span class="summary-value grand-total">{{ countTotalAfterDiscount() | currency }}</span>

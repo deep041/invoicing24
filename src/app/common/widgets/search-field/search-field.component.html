@@ -1,0 +1,13 @@
+<div class="search-field">
+    <mat-icon>search</mat-icon>
+    <input
+        type="text"
+        [placeholder]="placeholder"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onInput()">
+    @if (searchQuery) {
+        <button type="button" class="search-clear" (click)="clear()" aria-label="Clear search">
+            <mat-icon>close</mat-icon>
+        </button>
+    }
+</div>

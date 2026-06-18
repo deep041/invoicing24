@@ -1,5 +1,26 @@
 {
     "discountType": [{ "label": "Fixed", "value": "fixed" }, { "label": "Percentage", "value": "percentage" }],
+    "gstRates": [
+        { "label": "0%", "value": "0" },
+        { "label": "5%", "value": "5" },
+        { "label": "12%", "value": "12" },
+        { "label": "18%", "value": "18" },
+        { "label": "28%", "value": "28" }
+    ],
+    "units": [
+        { "label": "Nos", "value": "nos" },
+        { "label": "Kg", "value": "kg" },
+        { "label": "Gram", "value": "gram" },
+        { "label": "Meter", "value": "meter" },
+        { "label": "Litre", "value": "litre" },
+        { "label": "Box", "value": "box" },
+        { "label": "Pack", "value": "pack" },
+        { "label": "Dozen", "value": "dozen" },
+        { "label": "Quintal", "value": "quintal" },
+        { "label": "Ton", "value": "ton" },
+        { "label": "Sq. Ft.", "value": "sq_ft" },
+        { "label": "Sq. Mtr.", "value": "sq_mtr" }
+    ],
     "states": [
         { "name": "Andhra Pradesh", "code": "IN-AP", "isUnionTerritories": false },
         { "name": "Arunachal Pradesh", "code": "IN-AR", "isUnionTerritories": false },

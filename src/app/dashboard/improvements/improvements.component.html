@@ -1,0 +1,44 @@
+<div class="improvements-container">
+    <div class="title-row">
+        <div>
+            <h2>Improvements</h2>
+            <p class="page-subtitle">Suggest improvements and discuss ideas with comments</p>
+        </div>
+        <app-button [title]="'Add Improvement'" (click)="createImprovement()"></app-button>
+    </div>
+
+    @if (!improvements.length) {
+        <div class="empty-state">
+            <mat-icon>lightbulb_outline</mat-icon>
+            <p>No improvements yet. Add one to start collecting feedback.</p>
+        </div>
+    } @else {
+        <div class="improvement-list">
+            @for (item of improvements; track item._id) {
+                <article class="improvement-card">
+                    <div class="improvement-card-header">
+                        <h3>{{ item.title }}</h3>
+                        <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+                            {{ getStatusLabel(item.status) }}
+                        </span>
+                    </div>
+
+                    @if (item.description) {
+                        <p class="improvement-description">{{ item.description }}</p>
+                    }
+
+                    <div class="improvement-card-footer">
+                        <span class="comment-count">
+                            <mat-icon>chat_bubble_outline</mat-icon>
+                            {{ item.commentCount || 0 }} comment{{ (item.commentCount || 0) === 1 ? '' : 's' }}
+                        </span>
+                        <button type="button" class="view-comments-btn" (click)="openComments(item)">
+                            View &amp; Comment
+                            <mat-icon>chevron_right</mat-icon>
+                        </button>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</div>

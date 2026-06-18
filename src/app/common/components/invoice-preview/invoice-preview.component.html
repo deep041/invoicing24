@@ -19,6 +19,9 @@
             <div class="brand-name">{{ companyDetails?.name }}</div>
             <div class="brand-contact">{{ companyDetails?.contactNo }}</div>
             <div class="brand-address">{{ companyDetails?.address }}</div>
+            @if (companyDetails?.gstNo) {
+              <div class="brand-gst">GSTIN: {{ companyDetails.gstNo }}</div>
+            }
           </div>
           <div class="invoice-meta">
             <div class="invoice-meta-label">Invoice</div>
@@ -39,6 +42,12 @@
               <mat-icon>location_on</mat-icon>
               <span>{{ customerDetails?.address }}</span>
             </div>
+            @if (customerDetails?.gstNo) {
+              <div class="party-detail">
+                <mat-icon>badge</mat-icon>
+                <span>GSTIN: {{ customerDetails.gstNo }}</span>
+              </div>
+            }
           </div>
           <div class="party-card party-card-from">
             <div class="party-label">From</div>
@@ -74,6 +83,28 @@
               <div class="total-row discount-row">
                 <span>Discount</span>
                 <span>- {{ data.invoiceDiscountAmount | currency }}</span>
+              </div>
+            }
+            @if (data.taxableAmount != null) {
+              <div class="total-row">
+                <span>Taxable Amount</span>
+                <span>{{ data.taxableAmount | currency }}</span>
+              </div>
+            }
+            @if (data.isInterState && data.igstAmount) {
+              <div class="total-row">
+                <span>IGST</span>
+                <span>{{ data.igstAmount | currency }}</span>
+              </div>
+            }
+            @if (!data.isInterState && (data.cgstAmount || data.sgstAmount)) {
+              <div class="total-row">
+                <span>CGST</span>
+                <span>{{ data.cgstAmount | currency }}</span>
+              </div>
+              <div class="total-row">
+                <span>SGST</span>
+                <span>{{ data.sgstAmount | currency }}</span>
               </div>
             }
             <div class="total-row grand-total-row">

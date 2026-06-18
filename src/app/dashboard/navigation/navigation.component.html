@@ -24,6 +24,10 @@
             <mat-icon>home</mat-icon>
             Company Details
         </div>
+        <div class="nav-link" [routerLink]="['/improvements']" [class.active]="isActive(['/improvements'])" (click)="onNavClick()">
+            <mat-icon>lightbulb_outline</mat-icon>
+            Improvements
+        </div>
     </div>
 
     <div class="nav-footer">

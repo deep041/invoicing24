@@ -1,121 +1,227 @@
-<div class="nav-bar-container">
-    <div class="logo">Invoicing24</div>
-    <div class="nav-bar">
-        <a class="active">Home</a>
-        <a>About us</a>
-        <a>Contact us</a>
-    </div>
-    <div class="login">
-        <a (click)="redirect('/authentication/login')">Login/Signup</a>
+<header class="nav-bar-container">
+    <div class="logo" (click)="redirect('/landing')">
+        <mat-icon class="logo-icon">receipt_long</mat-icon>
+        <span>Invoicing24</span>
     </div>
 
-    <div class="menu-icon-bar">
-        <mat-icon (click)="isMenuOpen = !isMenuOpen">{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
-    </div>
+    <nav class="nav-bar" aria-label="Main navigation">
+        <a class="active" (click)="scrollToSection('hero')">Home</a>
+        <a (click)="redirect('/pricing')">Pricing</a>
+        <a (click)="scrollToSection('features')">Features</a>
+        <a (click)="scrollToSection('about')">About</a>
+    </nav>
+
+    <button type="button" class="login-btn" (click)="redirect('/authentication/login')">
+        Get Started
+    </button>
+
+    <button
+        type="button"
+        class="menu-icon-bar"
+        [attr.aria-expanded]="isMenuOpen"
+        aria-label="Toggle menu"
+        (click)="isMenuOpen = !isMenuOpen">
+        <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+</header>
+
+<div class="mobile-menu" [class.active]="isMenuOpen">
+    <a class="active" (click)="scrollToSection('hero')">Home</a>
+    <a (click)="redirect('/pricing')">Pricing</a>
+    <a (click)="scrollToSection('features')">Features</a>
+    <a (click)="scrollToSection('about')">About</a>
+    <button type="button" class="login-btn mobile-login" (click)="redirect('/authentication/login')">
+        Get Started
+    </button>
 </div>
 
-<div class="mobile-menu" [ngClass]="{ 'active': isMenuOpen }">
-    <a class="active">Home</a>
-    <a>About us</a>
-    <a>Contact us</a>
+<section id="hero" class="hero-container">
+    <div class="hero-content">
+        <span class="hero-badge">
+            <mat-icon>verified</mat-icon>
+            Free for everyone — for the next couple of weeks
+        </span>
 
-    <div class="login">
-        <a>Login/Signup</a>
-    </div>
-</div>
+        <h1 class="hero-title">
+            Create beautiful invoices in <span class="highlight">seconds</span>
+        </h1>
 
-<div class="hero-container">
-    <div class="hero-text">
-        <div class="hero-text-title section-title">Create beautiful invoices in seconds --- 100% Free</div>
-        <ul>
-            <li>No sign-up fees</li>
-            <li>No watermarks</li>
-            <li>No limits</li>
-            <li>Just fast, simple, powerful invoicing for everyone</li>
+        <p class="hero-subtitle">
+            Fast, simple, and powerful invoicing for freelancers, small businesses, and growing teams.
+        </p>
+
+        <ul class="hero-benefits">
+            <li><mat-icon>check_circle</mat-icon> Easy setup</li>
+            <li><mat-icon>check_circle</mat-icon> No watermarks</li>
+            <li><mat-icon>check_circle</mat-icon> PDF export</li>
         </ul>
+
+        <div class="hero-actions">
+            <button type="button" class="btn-primary" (click)="redirect('/authentication/register')">
+                Get Started
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+            <button type="button" class="btn-secondary" (click)="scrollToSection('features')">
+                See Features
+            </button>
+        </div>
     </div>
+
     <div class="hero-image">
-        <img src="../../assets/invoicing24-hero-section.png">
+        <div class="hero-image-glow"></div>
+        <img src="../../assets/invoicing24-hero-section.png" alt="Invoicing24 dashboard preview">
         <span class="float-item dot"></span>
         <span class="float-item ring"></span>
         <span class="float-item icon">₹</span>
     </div>
-</div>
+</section>
 
-<div class="features-container">
-    <h2>⭐ Why Invoicing24?</h2>
+<section id="features" class="features-container">
+    <div class="section-header">
+        <span class="section-label">Why choose us</span>
+        <h2>Why Invoicing24?</h2>
+        <p>Everything you need to invoice professionally — built for growing businesses.</p>
+    </div>
 
     <div class="feature-boxes">
-        <div class="feature-box">
-            <div class="feature-box-number">1</div>
-            <div class="feature-box-title">Completely Free</div>
-            <div class="feature-box-desc">No hidden charges, no monthly plans, no trials. Invoicing24 is free for now.</div>
+        <article class="feature-box">
+            <div class="feature-icon">
+                <mat-icon>savings</mat-icon>
+            </div>
+            <h3>Simple Pricing</h3>
+            <p>Clear, affordable plans designed for freelancers and small businesses.</p>
+        </article>
+
+        <article class="feature-box">
+            <div class="feature-icon">
+                <mat-icon>water_drop</mat-icon>
+            </div>
+            <h3>Zero Watermarks</h3>
+            <p>Your invoices stay clean and professional — we never place our logo on your documents.</p>
+        </article>
+
+        <article class="feature-box">
+            <div class="feature-icon">
+                <mat-icon>folder_open</mat-icon>
+            </div>
+            <h3>Invoice Management</h3>
+            <p>Create, track, and manage all your invoices from one simple dashboard.</p>
+        </article>
+    </div>
+</section>
+
+<section class="feature-you-love-container">
+    <div class="section-header">
+        <span class="section-label">Capabilities</span>
+        <h2>Features You'll Love</h2>
+        <p>Built for speed, clarity, and everyday business workflows.</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-item">
+            <mat-icon>devices</mat-icon>
+            <span>Works smoothly on mobile and desktop</span>
         </div>
-        <div class="feature-box">
-            <div class="feature-box-number">2</div>
-            <div class="feature-box-title">Zero Watermarks</div>
-            <div class="feature-box-desc">Your invoices are clean and professional — we never place our logo or watermark on your documents.</div>
+        <div class="feature-item">
+            <mat-icon>edit_note</mat-icon>
+            <span>Easy-to-use invoice creator</span>
         </div>
-        <div class="feature-box">
-            <div class="feature-box-number">3</div>
-            <div class="feature-box-title">Unlimited Invoices</div>
-            <div class="feature-box-desc">Create as many invoices as you want. Whether you send 5 a month or 500, we’ve got you.</div>
+        <div class="feature-item">
+            <mat-icon>description</mat-icon>
+            <span>Professional invoice templates</span>
+        </div>
+        <div class="feature-item">
+            <mat-icon>calculate</mat-icon>
+            <span>Auto-calculated totals &amp; taxes</span>
+        </div>
+        <div class="feature-item">
+            <mat-icon>history</mat-icon>
+            <span>Save and manage your full invoice history</span>
+        </div>
+        <div class="feature-item">
+            <mat-icon>picture_as_pdf</mat-icon>
+            <span>Download as PDF instantly</span>
         </div>
     </div>
-</div>
+</section>
 
-<div class="feature-you-love-container">
-    <h2>🚀 Features You'll Love</h2>
-    <div class="feature-you-love">
-        <div>
-            <div class="feature"><span>✅</span> Works smoothly on mobile and desktop</div>
-            <div class="feature"><span>✅</span> Easy-to-use invoice creator</div>
-            <div class="feature"><span>✅</span> Professional invoice templates</div>
+<section id="about" class="about-us-container">
+    <div class="about-card">
+        <div class="section-header">
+            <span class="section-label">Our story</span>
+            <h2>About Invoicing24</h2>
         </div>
-        <div>
-            <div class="feature"><span>✅</span> Auto-calculated totals & taxes</div>
-            <div class="feature"><span>✅</span> Save and manage your full invoice history</div>
-            <div class="feature"><span>✅</span> Download as PDF instantly</div>
-        </div>
+        <p>
+            Invoicing24 was created with one clear goal — to make invoicing simple, fast, and accessible
+            for freelancers, small businesses, and growing teams.
+        </p>
+        <p>
+            We believe creating invoices shouldn't be complicated or time-consuming. That's why
+            Invoicing24 helps you create professional, watermark-free invoices quickly —
+            so you can focus on running your business, not managing tools.
+        </p>
     </div>
-</div>
+</section>
 
-<div class="about-us-container">
-    <h2>💬 About Invoicing24</h2>
-    <p>Invoicing24 was created with one clear goal — to make invoicing simple, fast, and accessible for freelancers, small businesses, and growing teams.</p>
-    <p>We believe creating invoices shouldn’t be complicated, expensive, or limited. That’s why Invoicing24 allows you to create professional invoices without watermarks, limits, or hidden charges — so you can focus on running your business, not managing tools.</p>
-</div>
+<section class="cta-container">
+    <div class="cta-card">
+        <h2>Ready to simplify your invoicing?</h2>
+        <p>Join thousands of businesses creating professional invoices in minutes.</p>
+        <button type="button" class="btn-primary" (click)="redirect('/authentication/register')">
+            Create Account
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </div>
+</section>
 
-<div class="footer-container">
+<footer class="footer-container">
     <div class="app-details">
-        <div class="logo">Invoicing24</div>
-        <div class="sub-line">Free online invoicing tool to create unlimited, watermark-free invoices in minutes.</div>
+        <div class="logo">
+            <mat-icon class="logo-icon">receipt_long</mat-icon>
+            <span>Invoicing24</span>
+        </div>
+        <p class="sub-line">
+            Professional online invoicing tool to create watermark-free invoices in minutes.
+        </p>
         <div class="social">
-            <div class="social-icon"><img src="../../assets/icons/facebook.svg"></div>
-            <div class="social-icon"><img src="../../assets/icons/instagram.svg"></div>
-            <div class="social-icon"><img src="../../assets/icons/linkedin.svg"></div>
-            <div class="social-icon"><img src="../../assets/icons/x-twitter.svg"></div>
-            <div class="social-icon"><img src="../../assets/icons/youtube.svg"></div>
+            <a class="social-icon" href="#" aria-label="Facebook">
+                <img src="../../assets/icons/facebook.svg" alt="">
+            </a>
+            <a class="social-icon" href="#" aria-label="Instagram">
+                <img src="../../assets/icons/instagram.svg" alt="">
+            </a>
+            <a class="social-icon" href="#" aria-label="LinkedIn">
+                <img src="../../assets/icons/linkedin.svg" alt="">
+            </a>
+            <a class="social-icon" href="#" aria-label="X">
+                <img src="../../assets/icons/x-twitter.svg" alt="">
+            </a>
+            <a class="social-icon" href="#" aria-label="YouTube">
+                <img src="../../assets/icons/youtube.svg" alt="">
+            </a>
         </div>
     </div>
+
     <div class="quick-links">
         <b>Quick Links</b>
-        <a>Home</a>
-        <a>Contact us</a>
-        <a>About us</a>
+        <a (click)="scrollToSection('hero')">Home</a>
+        <a (click)="redirect('/pricing')">Pricing</a>
+        <a (click)="scrollToSection('features')">Features</a>
+        <a (click)="scrollToSection('about')">About</a>
     </div>
+
     <div class="quick-links">
-        <b>Registration</b>
-        <a>Login</a>
-        <a>Signup</a>
+        <b>Account</b>
+        <a (click)="redirect('/authentication/login')">Login</a>
+        <a (click)="redirect('/authentication/register')">Sign Up</a>
     </div>
+
     <div class="quick-links">
         <b>Legal</b>
-        <a>Privacy Policy</a>
-        <a>Terms of service</a>
-        <a>Refer your friends</a>
+        <a (click)="redirect('/privacy-policy')">Privacy Policy</a>
+        <a (click)="redirect('/terms-of-service')">Terms of Service</a>
     </div>
-</div>
+</footer>
 
 <div class="footer-2">
     <div class="love-line">

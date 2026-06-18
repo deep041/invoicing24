@@ -10,7 +10,7 @@
         </div>
         <div class="input-group">
             <app-input [placeholder]="'GST No.'" [label]="'GST No.'" formControlName="gstNo"></app-input>
-            <app-input [placeholder]="'State'" [label]="'State'" formControlName="stateCode"></app-input>
+            <app-select [label]="'State'" [options]="stateOptions" formControlName="stateCode"></app-select>
         </div>
         <app-textarea [placeholder]="'Address'" [label]="'Address'" formControlName="address"></app-textarea>
     </form>

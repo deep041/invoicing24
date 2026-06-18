@@ -1,15 +1,81 @@
-<div class="customer-list-container">
-    <div class="customer-list-title">
-        <h3> Customer List </h3> 
-    </div>
-
-    <div class="customer-list-body">
-        <app-table [headers]="headers" [data]="customerData" (selectedData)="selectCustomer($event)"> </app-table>
-        <app-pagination
-            [pageIndex]="pageIndex"
-            [pageSize]="pageSize"
-            [totalItems]="totalItems"
-            (pageChange)="onPageChange($event)">
-        </app-pagination>
-    </div>
+<div class="picker-header" mat-dialog-title>
+  <div class="picker-header-text">
+    <h2>Select Customer</h2>
+    <p>Choose who this invoice is for</p>
+  </div>
+  <button type="button" class="picker-close" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
+
+<mat-dialog-content>
+  <div class="picker-toolbar">
+    <div class="search-field">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Search by name, phone, or address…" [(ngModel)]="searchQuery">
+      @if (searchQuery) {
+        <button type="button" class="search-clear" (click)="searchQuery = ''" aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+    <button type="button" class="toolbar-action" (click)="createCustomer()">
+      <mat-icon>person_add</mat-icon>
+      <span>New</span>
+    </button>
+  </div>
+
+  <div class="picker-list" [class.is-loading]="isLoading">
+    @if (isLoading) {
+      <div class="picker-state">
+        <mat-icon>hourglass_empty</mat-icon>
+        <span>Loading customers…</span>
+      </div>
+    } @else if (!filteredCustomers.length) {
+      <div class="picker-state">
+        <mat-icon>person_off</mat-icon>
+        @if (searchQuery.trim()) {
+          <span class="picker-state-title">No matches found</span>
+          <span class="picker-state-hint">Try a different search term</span>
+        } @else {
+          <span class="picker-state-title">No customers yet</span>
+          <span class="picker-state-hint">Add a customer to continue with your invoice</span>
+          <app-button [title]="'Create Customer'" (click)="createCustomer()"></app-button>
+        }
+      </div>
+    } @else {
+      @for (customer of filteredCustomers; track customer._id) {
+        <button type="button" class="picker-card" (click)="selectCustomer(customer)">
+          <div class="picker-card-avatar">{{ customer.name[0] }}</div>
+          <div class="picker-card-body">
+            <span class="picker-card-title">{{ customer.name }}</span>
+            <span class="picker-card-meta">
+              <mat-icon>phone</mat-icon>{{ customer.contactNo }}
+            </span>
+            @if (customer.address) {
+              <span class="picker-card-meta address">
+                <mat-icon>location_on</mat-icon>{{ customer.address }}
+              </span>
+            }
+          </div>
+          <mat-icon class="picker-card-chevron">chevron_right</mat-icon>
+        </button>
+      }
+    }
+  </div>
+
+  @if (!searchQuery.trim() && totalItems > pageSize) {
+    <div class="picker-pagination">
+      <app-pagination
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
+</mat-dialog-actions>

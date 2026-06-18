@@ -9,6 +9,8 @@
                 <app-input [placeholder]="'Name'" [label]="'Name'" formControlName="name"></app-input>
                 <app-input [placeholder]="'Price'" [label]="'Price'" formControlName="price"></app-input>
                 <app-input [placeholder]="'HSN Code'" [label]="'HSN Code'" formControlName="hsnCode"></app-input>
+                <app-select [label]="'Unit'" [options]="unitOptions" formControlName="unit"></app-select>
+                <app-select [label]="'GST Rate'" [options]="gstRateOptions" formControlName="gstRate"></app-select>
             </div>
         </form>
     </mat-dialog-content>
@@ -17,6 +19,6 @@
 <mat-dialog-actions align="end">
     <div class="footer-buttons">
         <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
-        <app-button [title]="data?._id ? 'Edit' : 'Create'" (click)="create()"></app-button> 
+        <app-button [title]="dialogData?._id ? 'Edit' : 'Create'" (click)="create()"></app-button> 
     </div>
  </mat-dialog-actions>

@@ -5,6 +5,21 @@
         <app-button [title]="'Create Item'" (click)="createItem()"></app-button>
     </div>
 
+    <div class="list-toolbar">
+        <app-search-field
+            placeholder="Search by name or HSN code…"
+            (searchChange)="onSearchChange($event)">
+        </app-search-field>
+        <div class="list-filter">
+            <app-select
+                label="Status"
+                [options]="statusOptions"
+                [ngModel]="statusFilter"
+                (ngModelChange)="onStatusChange($event)">
+            </app-select>
+        </div>
+    </div>
+
     <div class="customer-list">
         <app-table *ngIf="itemData" [headers]="headers" [data]="itemData" (edit)="createItem($event)"></app-table>
         <app-pagination

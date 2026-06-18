@@ -1,0 +1,83 @@
+<header class="nav-bar-container">
+    <div class="logo" (click)="redirect('/landing')">
+        <mat-icon class="logo-icon">receipt_long</mat-icon>
+        <span>Invoicing24</span>
+    </div>
+
+    <nav class="nav-bar" aria-label="Main navigation">
+        <a (click)="redirect('/landing')">Home</a>
+        <a (click)="redirect('/pricing')">Pricing</a>
+        <a (click)="redirect('/landing')">Features</a>
+        <a (click)="redirect('/landing')">About</a>
+    </nav>
+
+    <button type="button" class="login-btn" (click)="redirect('/authentication/login')">
+        Get Started
+    </button>
+
+    <button
+        type="button"
+        class="menu-icon-bar"
+        [attr.aria-expanded]="isMenuOpen"
+        aria-label="Toggle menu"
+        (click)="isMenuOpen = !isMenuOpen">
+        <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+</header>
+
+<div class="mobile-menu" [class.active]="isMenuOpen">
+    <a (click)="redirect('/landing')">Home</a>
+    <a (click)="redirect('/pricing')">Pricing</a>
+    <a (click)="redirect('/landing')">Features</a>
+    <a (click)="redirect('/landing')">About</a>
+    <button type="button" class="login-btn mobile-login" (click)="redirect('/authentication/login')">
+        Get Started
+    </button>
+</div>
+
+<main class="legal-container">
+    <div class="legal-header">
+        <span class="section-label">Legal</span>
+        <h1>{{ title }}</h1>
+        <p class="last-updated">Last updated: {{ lastUpdated }}</p>
+    </div>
+
+    <article class="legal-content">
+        <ng-content />
+    </article>
+</main>
+
+<footer class="footer-container">
+    <div class="app-details">
+        <div class="logo">
+            <mat-icon class="logo-icon">receipt_long</mat-icon>
+            <span>Invoicing24</span>
+        </div>
+        <p class="sub-line">
+            Professional online invoicing tool to create watermark-free invoices in minutes.
+        </p>
+    </div>
+
+    <div class="quick-links">
+        <b>Quick Links</b>
+        <a (click)="redirect('/landing')">Home</a>
+        <a (click)="redirect('/pricing')">Pricing</a>
+        <a (click)="redirect('/authentication/login')">Login</a>
+        <a (click)="redirect('/authentication/register')">Sign Up</a>
+    </div>
+
+    <div class="quick-links">
+        <b>Legal</b>
+        <a [class.active]="activePage === 'privacy'" (click)="redirect('/privacy-policy')">Privacy Policy</a>
+        <a [class.active]="activePage === 'terms'" (click)="redirect('/terms-of-service')">Terms of Service</a>
+    </div>
+</footer>
+
+<div class="footer-2">
+    <div class="love-line">
+        Made with <span class="heart">❤️</span> in India
+    </div>
+    <div class="copyright">
+        © 2026 Invoicing24. All rights reserved.
+    </div>
+</div>

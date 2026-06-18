@@ -1,6 +1,8 @@
 export interface PaginationParams {
     page?: number;
     limit?: number;
+    search?: string;
+    status?: string;
 }
 
 export interface PaginationMeta {

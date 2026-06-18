@@ -3,12 +3,14 @@ import { ButtonComponent } from "../../common/widgets/button/button.component";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from "../../common/widgets/input/input.component";
 import { TextareaComponent } from "../../common/widgets/textarea/textarea.component";
+import { SelectComponent } from "../../common/widgets/select/select.component";
 import { ApiService } from '../../common/services/api.service';
 import { ToastService } from '../../common/services/toast.service';
+import data from '../../../assets/data.json';
 
 @Component({
     selector: 'app-company-details',
-    imports: [ButtonComponent, FormsModule, ReactiveFormsModule, InputComponent, TextareaComponent],
+    imports: [ButtonComponent, FormsModule, ReactiveFormsModule, InputComponent, TextareaComponent, SelectComponent],
     templateUrl: './company-details.component.html',
     styleUrl: './company-details.component.scss'
 })
@@ -16,6 +18,10 @@ import { ToastService } from '../../common/services/toast.service';
 export class CompanyDetailsComponent implements OnInit {
 
     companyDetailsForm!: FormGroup;
+    stateOptions = [
+        { label: 'Select State', value: '' },
+        ...data.states.map((state) => ({ label: state.name, value: state.code }))
+    ];
 
     constructor(private fb: FormBuilder, private apiService: ApiService, private toastService: ToastService) {}
 

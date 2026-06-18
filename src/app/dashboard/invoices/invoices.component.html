@@ -4,6 +4,13 @@
         <app-button [title]="'Create Invoice'" [routerLink]="'/create-invoice'"></app-button>
     </div>
 
+    <div class="list-toolbar">
+        <app-search-field
+            placeholder="Search by invoice number or customer…"
+            (searchChange)="onSearchChange($event)">
+        </app-search-field>
+    </div>
+
     <div class="customer-list">
         <app-table [headers]="headers" [data]="invoices" (view)="viewInvoice($event)"></app-table>
         <app-pagination

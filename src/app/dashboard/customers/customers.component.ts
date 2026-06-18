@@ -7,10 +7,11 @@ import { ApiService } from '../../common/services/api.service';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from '../../common/widgets/pagination/pagination.component';
 import { PaginationMeta } from '../../common/interfaces/pagination.interface';
+import { SearchFieldComponent } from '../../common/widgets/search-field/search-field.component';
 
 @Component({
     selector: 'app-customers',
-    imports: [TableComponent, ButtonComponent, CommonModule, PaginationComponent],
+    imports: [TableComponent, ButtonComponent, CommonModule, PaginationComponent, SearchFieldComponent],
     templateUrl: './customers.component.html',
     styleUrl: './customers.component.scss'
 })
@@ -22,6 +23,7 @@ export class CustomersComponent implements OnInit {
     pageIndex = 0;
     pageSize = 10;
     totalItems = 0;
+    searchQuery = '';
 
     constructor(private dialog: MatDialog, private apiService: ApiService) {}
 
@@ -30,12 +32,17 @@ export class CustomersComponent implements OnInit {
     }
 
     getCustomers(page = 1, limit = this.pageSize) {
-        this.apiService.getCustomers({ page, limit }).subscribe((response: any) => {
+        this.apiService.getCustomers({ page, limit, search: this.searchQuery }).subscribe((response: any) => {
             if (response && response.success) {
                 this.customerData = response.data.items;
                 this.applyPagination(response.data.pagination);
             }
         });
+    }
+
+    onSearchChange(search: string) {
+        this.searchQuery = search;
+        this.getCustomers(1, this.pageSize);
     }
 
     onPageChange(event: { page: number; limit: number }) {

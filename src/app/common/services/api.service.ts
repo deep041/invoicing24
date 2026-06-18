@@ -24,6 +24,14 @@ export class ApiService {
             httpParams = httpParams.set('limit', params.limit.toString());
         }
 
+        if (params?.search?.trim()) {
+            httpParams = httpParams.set('search', params.search.trim());
+        }
+
+        if (params?.status?.trim()) {
+            httpParams = httpParams.set('status', params.status.trim());
+        }
+
         return httpParams;
     }
 
@@ -91,6 +99,34 @@ export class ApiService {
 
     getDashboardData() {
         return this.http.get<any>(`${environment.apiUrl}dashboard`);
+    }
+
+    getImprovements() {
+        return this.http.get<any>(`${environment.apiUrl}improvement`);
+    }
+
+    createImprovement(payload: { title: string; description?: string }) {
+        return this.http.post<any>(`${environment.apiUrl}improvement`, payload);
+    }
+
+    getImprovementComments(improvementId: string) {
+        return this.http.get<any>(`${environment.apiUrl}improvement/${improvementId}/comments`);
+    }
+
+    addImprovementComment(improvementId: string, payload: { text: string }) {
+        return this.http.post<any>(`${environment.apiUrl}improvement/${improvementId}/comments`, payload);
+    }
+
+    getAllImprovementComments() {
+        return this.http.get<any>(`${environment.apiUrl}improvement/comments/all`);
+    }
+
+    createProject(payload: { name: string; description?: string; commentIds?: string[] }) {
+        return this.http.post<any>(`${environment.apiUrl}project`, payload);
+    }
+
+    getProjects() {
+        return this.http.get<any>(`${environment.apiUrl}project`);
     }
 
 }

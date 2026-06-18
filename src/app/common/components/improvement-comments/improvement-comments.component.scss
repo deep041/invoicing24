@@ -1,0 +1,359 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.dialog-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px 0;
+  margin: 0;
+}
+
+.dialog-header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--secondary-color-light);
+  color: var(--secondary-color);
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.dialog-header-text {
+  min-width: 0;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+}
+
+.dialog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-open {
+  background: var(--primary-color-light);
+  color: var(--primary-color);
+}
+
+.status-in_progress {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status-completed {
+  background: var(--success-bg);
+  color: var(--success-color);
+}
+
+.comment-count-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: var(--bg-muted);
+    color: var(--text-color);
+  }
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 16px 24px 8px !important;
+}
+
+.improvement-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+
+  mat-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--text-light);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+}
+
+.comments-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+.comments-panel-header {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+
+  h3 {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+}
+
+.comments-panel-body {
+  min-height: 160px;
+  max-height: 280px;
+  overflow-y: auto;
+
+  &.is-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.comments-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--text-muted);
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+}
+
+.comments-state-title {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.comments-state-hint {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.comment-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-color-light);
+  color: var(--primary-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.comment-text {
+  margin: 0;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  line-height: 1.55;
+  color: var(--text-color);
+}
+
+.add-comment-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-subtle);
+
+  ::ng-deep textarea {
+    min-height: 88px;
+  }
+}
+
+.add-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-color);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--primary-color);
+  }
+}
+
+mat-dialog-actions {
+  flex-shrink: 0;
+  padding: 12px 24px 20px !important;
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .dialog-header {
+    padding: 16px 16px 0;
+  }
+
+  mat-dialog-content {
+    padding: 12px 16px 8px !important;
+  }
+
+  .comments-panel-body {
+    max-height: 220px;
+  }
+
+  mat-dialog-actions {
+    padding: 12px 16px 16px !important;
+  }
+
+  .dialog-footer {
+    width: 100%;
+    flex-direction: column-reverse;
+
+    app-button {
+      width: 100%;
+    }
+  }
+
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}

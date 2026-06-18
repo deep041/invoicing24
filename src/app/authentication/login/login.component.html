@@ -1,18 +1,43 @@
-<div class="login-container">
-    <form [formGroup]="loginForm">
-        <div class="login-form">
-            <div class="login-box">
-                <h2>Login</h2>
-                <app-input formControlName="email" [placeholder]="'Enter your Email ID'" />
-                <app-input formControlName="password" [type]="'password'" [placeholder]="'Enter your password'" />
-            
-                <app-button [title]="'Login'" (click)="login()"></app-button>
-        
-                <span class="last-text">New here? <span class="redirection" (click)="redirect('authentication/register')">Register</span></span>
+<div class="login-page">
+    <a class="back-link" (click)="redirect('landing')">
+        <mat-icon>arrow_back</mat-icon>
+        Back to home
+    </a>
+
+    <form class="login-form" [formGroup]="loginForm">
+        <div class="login-panel">
+            <div class="brand">
+                <mat-icon class="brand-icon">receipt_long</mat-icon>
+                <span class="brand-name">Invoicing24</span>
             </div>
-            <div class="img-container">
-                <img src="../../../assets/invoicing24-hero-section.png">
+
+            <h1>Welcome back</h1>
+            <p class="subtitle">Sign in to manage your invoices and customers.</p>
+
+            <div class="form-fields">
+                <app-input formControlName="email" [placeholder]="'Email address'" />
+                <app-input formControlName="password" [type]="'password'" [placeholder]="'Password'" />
             </div>
+
+            <app-button [title]="'Sign In'" (click)="login()"></app-button>
+
+            <p class="auth-switch">
+                New here?
+                <span class="redirection" (click)="redirect('authentication/register')">Create an account</span>
+            </p>
+        </div>
+
+        <div class="visual-panel">
+            <div class="visual-content">
+                <h2>Invoice smarter, not harder</h2>
+                <p>Create professional, watermark-free invoices in minutes — completely free.</p>
+                <ul>
+                    <li><mat-icon>check_circle</mat-icon> Unlimited invoices</li>
+                    <li><mat-icon>check_circle</mat-icon> PDF export</li>
+                    <li><mat-icon>check_circle</mat-icon> Mobile friendly</li>
+                </ul>
+            </div>
+            <img src="../../../assets/invoicing24-hero-section.png" alt="Invoicing24 preview">
         </div>
     </form>
 </div>

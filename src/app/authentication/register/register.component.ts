@@ -1,32 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { InputComponent } from "../../common/widgets/input/input.component";
-import { ButtonComponent } from "../../common/widgets/button/button.component";
+import { InputComponent } from '../../common/widgets/input/input.component';
+import { ButtonComponent } from '../../common/widgets/button/button.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../../common/services/api.service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-register',
-    imports: [InputComponent, ButtonComponent, FormsModule, ReactiveFormsModule],
+    imports: [InputComponent, ButtonComponent, ReactiveFormsModule, MatIconModule],
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss'
 })
-
 export class RegisterComponent implements OnInit {
 
     registrationForm!: FormGroup;
 
-    constructor(private router: Router, private apiService: ApiService, private fb: FormBuilder) {}
+    constructor(
+        private router: Router,
+        private apiService: ApiService,
+        private fb: FormBuilder
+    ) {}
 
     ngOnInit(): void {
         this.createForm();
     }
 
-    redirect(route: string) {
+    redirect(route: string): void {
         this.router.navigate([route]);
     }
 
-    createForm() {
+    createForm(): void {
         this.registrationForm = this.fb.group({
             firstName: ['', [Validators.required]],
             lastName: ['', [Validators.required]],
@@ -35,14 +39,13 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    register() {
+    register(): void {
         if (this.registrationForm.valid) {
-            this.apiService.register(this.registrationForm.value).subscribe((data: any) => {
+            this.apiService.register(this.registrationForm.value).subscribe((data: { success: boolean }) => {
                 if (data.success) {
                     this.redirect('authentication/login');
                 }
             });
         }
     }
-
 }

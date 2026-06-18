@@ -9,6 +9,12 @@ export interface Invoice {
     total: number;
     grandTotal: number;
     totalDiscountAmount?: number;
+    taxableAmount?: number;
+    cgstAmount?: number;
+    sgstAmount?: number;
+    igstAmount?: number;
+    totalGstAmount?: number;
+    isInterState?: boolean;
 }
 
 export interface CompanyDetails {
@@ -16,6 +22,8 @@ export interface CompanyDetails {
     contactNo: string;
     address: string;
     id: string;
+    gstNo?: string;
+    stateCode?: string;
 }
 
 export interface CustomerDetails {
@@ -23,10 +31,13 @@ export interface CustomerDetails {
     contactNo: string;
     address: string;
     id: string;
+    gstNo?: string;
+    stateCode?: string;
 }
 
 export interface InvoiceItem {
     name: string;
+    hsnCode?: string;
     price: number;
     quantity: number;
     discount?: number;
@@ -34,5 +45,11 @@ export interface InvoiceItem {
     discountValue?: number;
     amount: number;
     netAmount: number;
+    gstRate?: number;
+    taxableAmount?: number;
+    gstAmount?: number;
+    cgstAmount?: number;
+    sgstAmount?: number;
+    igstAmount?: number;
     id: string;
 }

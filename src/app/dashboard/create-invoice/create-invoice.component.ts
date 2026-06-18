@@ -11,7 +11,7 @@ import { SelectItemsComponent } from '../../common/components/select-items/selec
 import { CompanyDetails, CustomerDetails, Invoice, InvoiceItem } from '../../common/interfaces/invoice.interface';
 import { CurrencyPipe } from '../../common/pipes/currency.pipe';
 import { ApiService } from '../../common/services/api.service';
-import { DataService } from '../../common/services/data.service';
+import { GstService, GstSummary } from '../../common/services/gst.service';
 import { ToastService } from '../../common/services/toast.service';
 import { ButtonComponent } from "../../common/widgets/button/button.component";
 import { InputComponent } from "../../common/widgets/input/input.component";
@@ -33,6 +33,7 @@ export class CreateInvoiceComponent implements OnInit
   companyDetails: any;
   selectedItems: any[] = [];
   discountOptions = data.discountType;
+  gstRateOptions = data.gstRates;
   discountOnTotalType: 'percentage' | 'fixed' = 'fixed';
   discountOnTotal: number = 0;
   invoiceNumber: number = 0;
@@ -46,10 +47,17 @@ export class CreateInvoiceComponent implements OnInit
     { label: 'Disc.', key: 'discount', type: 'number', placeholder: 'Disc.', isNumberInput: true, minWidth: '80px' },
     { label: 'Disc. Amt', key: 'discountAmount', align: 'right', isDiscountAmount: true, minWidth: '88px' },
     { label: 'Net Amt', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity', minWidth: '88px' },
+    { label: 'GST %', key: 'gstRate', isSelect: true, options: data.gstRates, minWidth: '88px' },
     { label: '', key: 'delete', align: 'right', isDelete: true, minWidth: '44px', width: '44px' }
   ];
 
-  constructor(private dialog: MatDialog, private apiService: ApiService, private router: Router, private toastService: ToastService, private dataService: DataService) { }
+  constructor(
+    private dialog: MatDialog,
+    private apiService: ApiService,
+    private router: Router,
+    private toastService: ToastService,
+    private gstService: GstService
+  ) { }
 
   ngOnInit(): void
   {
@@ -82,8 +90,11 @@ export class CreateInvoiceComponent implements OnInit
   selectCustomer()
   {
     let dialogRef = this.dialog.open(SelectCustomerComponent, {
-      height: '400px',
-      width: '600px'
+      width: '560px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      autoFocus: false,
+      panelClass: 'picker-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe(result =>
@@ -99,8 +110,11 @@ export class CreateInvoiceComponent implements OnInit
   selectItems()
   {
     let dialogRef = this.dialog.open(SelectItemsComponent, {
-      width: '600px',
-      maxHeight: '60vh',
+      width: '560px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      autoFocus: false,
+      panelClass: 'picker-dialog-panel',
       data: { selectedItems: this.selectedItems }
     });
 
@@ -109,29 +123,49 @@ export class CreateInvoiceComponent implements OnInit
       if (result)
       {
         let filteredSelectedItems = result.filter((item: any) => item.isDisabled !== true);
-        this.selectedItems.push(...filteredSelectedItems.map((data: any) => { return { name: data.name, hsnCode: data.hsnCode, price: data.price, category: data.category, quantity: 0, discountType: 'fixed', discount: 0, id: data._id }; }));
+        this.selectedItems.push(...filteredSelectedItems.map((data: any) => ({
+          name: data.name,
+          hsnCode: data.hsnCode,
+          price: data.price,
+          category: data.category,
+          quantity: 0,
+          discountType: 'fixed',
+          discount: 0,
+          gstRate: String(data.gstRate ?? 18),
+          id: data._id
+        })));
       }
     });
   }
 
-  generate()
+  getGstSummary(): GstSummary
   {
-    let companyDetails: CompanyDetails = {
-      name: this.companyDetails.name,
-      contactNo: this.companyDetails.contactNo,
-      address: this.companyDetails.address,
-      id: this.companyDetails._id
-    };
+    const items = this.selectedItems.map(item => ({
+      netAmount: this.gstService.getItemNetAmount(item.price, item.quantity, item.discount ?? 0, item.discountType ?? 'fixed'),
+      gstRate: Number(item.gstRate ?? 18)
+    }));
 
-    let customerDetails: CustomerDetails = {
-      name: this.selectedCustomer.name,
-      contactNo: this.selectedCustomer.contactNo,
-      address: this.selectedCustomer.address,
-      id: this.selectedCustomer._id
-    };
+    return this.gstService.calculate(
+      items,
+      this.getInvoiceDiscountAmount(),
+      this.companyDetails?.stateCode,
+      this.selectedCustomer?.stateCode
+    );
+  }
 
-    let items: InvoiceItem[] = this.selectedItems.map((item: any) =>
+  buildInvoiceItems(): InvoiceItem[]
+  {
+    const gstSummary = this.getGstSummary();
+
+    return this.selectedItems.map((item: any, index: number) =>
     {
+      const amount = Number(item.price) * Number(item.quantity);
+      const discountValue = (item.discountType === 'fixed')
+        ? item.discount
+        : (amount * (Number(item.discount) / 100));
+      const netAmount = amount - discountValue;
+      const gstLine = gstSummary.itemGst[index];
+
       return {
         name: item.name,
         hsnCode: item.hsnCode,
@@ -139,14 +173,42 @@ export class CreateInvoiceComponent implements OnInit
         quantity: item.quantity,
         discount: item.discount,
         discountType: item.discountType,
-        discountValue: (item.discountType === 'fixed') ? item.discount : ((Number(item.price) * Number(item.quantity)) * (Number(item.discount) / 100)),
-        amount: Number(item.price) * Number(item.quantity),
-        netAmount: (Number(item.price) * Number(item.quantity)) - ((item.discountType === 'fixed') ? item.discount : ((Number(item.price) * Number(item.quantity)) * (Number(item.discount) / 100))),
+        discountValue,
+        amount,
+        netAmount,
+        gstRate: Number(item.gstRate ?? 18),
+        taxableAmount: gstLine.taxableAmount,
+        gstAmount: gstLine.gstAmount,
+        cgstAmount: gstLine.cgstAmount,
+        sgstAmount: gstLine.sgstAmount,
+        igstAmount: gstLine.igstAmount,
         id: item.id
       };
     });
+  }
 
-    console.log('this.selectedItems', items);
+  generate()
+  {
+    const gstSummary = this.getGstSummary();
+    const items = this.buildInvoiceItems();
+
+    let companyDetails: CompanyDetails = {
+      name: this.companyDetails.name,
+      contactNo: this.companyDetails.contactNo,
+      address: this.companyDetails.address,
+      gstNo: this.companyDetails.gstNo,
+      stateCode: this.companyDetails.stateCode,
+      id: this.companyDetails._id
+    };
+
+    let customerDetails: CustomerDetails = {
+      name: this.selectedCustomer.name,
+      contactNo: this.selectedCustomer.contactNo,
+      address: this.selectedCustomer.address,
+      gstNo: this.selectedCustomer.gstNo,
+      stateCode: this.selectedCustomer.stateCode,
+      id: this.selectedCustomer._id
+    };
 
     let payload: Invoice = {
       companyDetails,
@@ -155,9 +217,15 @@ export class CreateInvoiceComponent implements OnInit
       invoiceDate: new Date(),
       discount: this.discountOnTotal,
       discountType: this.discountOnTotalType,
-      total: this.countTotal(),
-      grandTotal: this.countTotalAfterDiscount(),
-      totalDiscountAmount: this.discountOnTotalType === 'fixed' ? this.discountOnTotal : (this.countTotal() * (this.discountOnTotal / 100))
+      total: gstSummary.subtotal,
+      grandTotal: gstSummary.grandTotal,
+      totalDiscountAmount: gstSummary.invoiceDiscountAmount,
+      taxableAmount: gstSummary.taxableAmount,
+      cgstAmount: gstSummary.cgstAmount,
+      sgstAmount: gstSummary.sgstAmount,
+      igstAmount: gstSummary.igstAmount,
+      totalGstAmount: gstSummary.totalGstAmount,
+      isInterState: gstSummary.isInterState
     };
 
     this.apiService.createInvoice(payload).subscribe((res: any) =>
@@ -172,14 +240,22 @@ export class CreateInvoiceComponent implements OnInit
 
   preview()
   {
+    const gstSummary = this.getGstSummary();
+
     let data = {
       date: new Date(),
       customerDetails: this.selectedCustomer,
       companyDetails: this.companyDetails,
-      items: this.selectedItems,
-      invoiceTotal: this.countTotal(),
-      invoiceDiscountAmount: this.discountOnTotalType === 'fixed' ? this.discountOnTotal : (this.countTotal() * (this.discountOnTotal / 100)),
-      grandTotal: this.countTotalAfterDiscount(),
+      items: this.buildInvoiceItems(),
+      invoiceTotal: gstSummary.subtotal,
+      invoiceDiscountAmount: gstSummary.invoiceDiscountAmount,
+      taxableAmount: gstSummary.taxableAmount,
+      cgstAmount: gstSummary.cgstAmount,
+      sgstAmount: gstSummary.sgstAmount,
+      igstAmount: gstSummary.igstAmount,
+      totalGstAmount: gstSummary.totalGstAmount,
+      isInterState: gstSummary.isInterState,
+      grandTotal: gstSummary.grandTotal,
       invoiceNumber: this.invoiceNumber
     };
 
@@ -194,21 +270,29 @@ export class CreateInvoiceComponent implements OnInit
 
   countTotal(): number
   {
-    return this.selectedItems.reduce((def: number, data: any) => def += ((data.price * data.quantity) - (data.discountType ? ((data.discountType === 'fixed') ? data.discount : ((data.price * data.quantity) * (data.discount / 100))) : 0)), 0);
+    return this.getGstSummary().subtotal;
+  }
+
+  getInvoiceDiscountAmount(): number
+  {
+    const subtotal = this.selectedItems.reduce((def: number, data: any) =>
+      def + this.gstService.getItemNetAmount(data.price, data.quantity, data.discount ?? 0, data.discountType ?? 'fixed'), 0);
+
+    if ((this.discountOnTotalType === 'fixed') && (this.discountOnTotal > 0))
+    {
+      return this.discountOnTotal;
+    }
+    else if ((this.discountOnTotalType === 'percentage') && (this.discountOnTotal > 0))
+    {
+      return subtotal * (this.discountOnTotal / 100);
+    }
+
+    return 0;
   }
 
   countTotalAfterDiscount(): number
   {
-    if ((this.discountOnTotalType === 'fixed') && (this.discountOnTotal > 0))
-    {
-      return this.countTotal() - this.discountOnTotal;
-    } else if ((this.discountOnTotalType === 'percentage') && (this.discountOnTotal > 0))
-    {
-      return this.countTotal() - (this.countTotal() * (this.discountOnTotal / 100));
-    } else
-    {
-      return this.countTotal();
-    }
+    return this.getGstSummary().grandTotal;
   }
 
   deleteRow(rowData: any)

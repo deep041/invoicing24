@@ -32,7 +32,8 @@ export class InvoicePreviewComponent implements OnInit
     { label: 'Qty', key: 'quantity', align: 'right', minWidth: '56px' },
     { label: 'Amount', key: 'amount', align: 'right', isCurrency: true, minWidth: '88px' },
     { label: 'Disc. Amt', key: 'discountAmount', align: 'right', isDiscountAmount: true, minWidth: '88px' },
-    { label: 'Net Amt', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity', minWidth: '88px' }
+    { label: 'Net Amt', key: 'total', align: 'right', isInvoiceTotal: true, calculationLeftSideKey: 'price', calculationRightSideKey: 'quantity', minWidth: '88px' },
+    { label: 'GST %', key: 'gstRate', align: 'right', minWidth: '64px' }
   ];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<InvoicePreviewComponent>) { }
@@ -72,7 +73,8 @@ export class InvoicePreviewComponent implements OnInit
           price: item.price,
           amount: item.amount ?? amount,
           discountType: item.discountType,
-          discount: item.discount ?? 0
+          discount: item.discount ?? 0,
+          gstRate: item.gstRate ?? 0
         };
       });
     }

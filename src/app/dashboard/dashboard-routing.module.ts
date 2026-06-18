@@ -8,6 +8,7 @@ import { ItemsComponent } from './items/items.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { InvoicePreviewComponent } from '../common/components/invoice-preview/invoice-preview.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { ImprovementsComponent } from './improvements/improvements.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent, children: [
@@ -18,7 +19,8 @@ const routes: Routes = [
         { path: 'customers', component: CustomersComponent },
         { path: 'items', component: ItemsComponent },
         { path: 'invoice-preview', component: InvoicePreviewComponent },
-        { path: 'company-details', component: CompanyDetailsComponent }
+        { path: 'company-details', component: CompanyDetailsComponent },
+        { path: 'improvements', component: ImprovementsComponent }
     ] }
 ];
 

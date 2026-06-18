@@ -1,0 +1,47 @@
+<div class="dialog-header" mat-dialog-title>
+  <div class="dialog-header-main">
+    <div class="dialog-icon">
+      <mat-icon>lightbulb</mat-icon>
+    </div>
+    <div class="dialog-header-text">
+      <h2>Add Improvement</h2>
+      <p>Share an idea or feature request for the platform</p>
+    </div>
+  </div>
+  <button type="button" class="dialog-close" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="improvementForm" class="improvement-form">
+    <div class="form-field">
+      <app-input
+        [label]="'Title'"
+        [placeholder]="'e.g. Add bulk invoice export'"
+        formControlName="title">
+      </app-input>
+      <span class="field-hint">A short, clear name for the improvement</span>
+    </div>
+
+    <div class="form-field description-field">
+      <app-textarea
+        [label]="'Description'"
+        [placeholder]="'Describe what you want improved and why it would help…'"
+        formControlName="description">
+      </app-textarea>
+      <span class="field-hint">Optional — add context so others can discuss it</span>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="dialog-footer">
+    <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
+    <app-button
+      [title]="isSubmitting ? 'Creating…' : 'Create Improvement'"
+      (click)="create()"
+      [disabled]="!improvementForm.valid || isSubmitting">
+    </app-button>
+  </div>
+</mat-dialog-actions>

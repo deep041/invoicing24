@@ -1,21 +1,93 @@
-<!-- <div class="items-list-container"> -->
-    <div class="items-list-title" mat-dialog-title>
-        <h3>Items List</h3>
+<div class="picker-header" mat-dialog-title>
+  <div class="picker-header-text">
+    <h2>Select Items</h2>
+    <p>Choose products or services for this invoice</p>
+  </div>
+  <button type="button" class="picker-close" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="picker-toolbar">
+    <div class="search-field">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Search by name or HSN code…" [(ngModel)]="searchQuery">
+      @if (searchQuery) {
+        <button type="button" class="search-clear" (click)="searchQuery = ''" aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
     </div>
+    @if (newSelectionCount > 0) {
+      <span class="selection-badge">{{ newSelectionCount }} selected</span>
+    }
+  </div>
 
-    <mat-dialog-content class="mat-typography">
-        <div class="items-list-body">
-            <app-table *ngIf="items" [headers]="headers" [data]="items" (selectedItems)="selectItems($event)"></app-table>
-            <app-pagination
-                [pageIndex]="pageIndex"
-                [pageSize]="pageSize"
-                [totalItems]="totalItems"
-                (pageChange)="onPageChange($event)">
-            </app-pagination>
-        </div>
-    </mat-dialog-content>
+  <div class="picker-list" [class.is-loading]="isLoading">
+    @if (isLoading) {
+      <div class="picker-state">
+        <mat-icon>hourglass_empty</mat-icon>
+        <span>Loading items…</span>
+      </div>
+    } @else if (!filteredItems.length) {
+      <div class="picker-state">
+        <mat-icon>inventory_2</mat-icon>
+        @if (searchQuery.trim()) {
+          <span class="picker-state-title">No matches found</span>
+          <span class="picker-state-hint">Try a different search term</span>
+        } @else {
+          <span class="picker-state-title">No items in catalogue</span>
+          <span class="picker-state-hint">Add items from the Items page first</span>
+        }
+      </div>
+    } @else {
+      @for (item of filteredItems; track item._id) {
+        <label class="picker-card item-card"
+          [class.selected]="item.checkbox"
+          [class.disabled]="item.isDisabled">
+          <input type="checkbox"
+            class="item-checkbox"
+            [(ngModel)]="item.checkbox"
+            [disabled]="item.isDisabled"
+            (ngModelChange)="onItemToggle(item)">
+          <div class="picker-card-icon">
+            <mat-icon>inventory_2</mat-icon>
+          </div>
+          <div class="picker-card-body">
+            <span class="picker-card-title">{{ item.name }}</span>
+            <span class="picker-card-meta">
+              <span>HSN {{ item.hsnCode }}</span>
+              @if (item.isDisabled) {
+                <span class="already-added">Already added</span>
+              }
+            </span>
+          </div>
+          <span class="item-price">{{ item.price | currency }}</span>
+        </label>
+      }
+    }
+  </div>
 
-<!-- </div> -->
+  @if (!searchQuery.trim() && totalItems > pageSize) {
+    <div class="picker-pagination">
+      <app-pagination
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  }
+</mat-dialog-content>
+
 <mat-dialog-actions align="end">
-   <app-button [title]="'Select'" (click)="select()"></app-button> 
+  <div class="footer-actions">
+    <app-button [title]="'Cancel'" [style]="'style2'" (click)="close()"></app-button>
+    <app-button
+      [title]="newSelectionCount ? 'Add ' + newSelectionCount + ' item' + (newSelectionCount > 1 ? 's' : '') : 'Add items'"
+      [disabled]="newSelectionCount === 0"
+      (click)="select()">
+    </app-button>
+  </div>
 </mat-dialog-actions>

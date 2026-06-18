@@ -5,6 +5,13 @@
         <app-button [title]="'Create Customer'" (click)="createCustomer()"></app-button>
     </div>
 
+    <div class="list-toolbar">
+        <app-search-field
+            placeholder="Search by name, phone, or address…"
+            (searchChange)="onSearchChange($event)">
+        </app-search-field>
+    </div>
+
     <div class="customer-list">
         <app-table *ngIf="customerData" [headers]="headers" [data]="customerData" (edit)="createCustomer($event)"></app-table>
         <app-pagination

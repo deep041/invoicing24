@@ -12,7 +12,7 @@
                 </div>
                 <div class="input-group">
                     <app-input [title]="'GST No.'" [label]="'GST No.'" [placeholder]="'GST No.'" formControlName="gstNo"></app-input>
-                    <app-input [title]="'State'" [label]="'State'" [placeholder]="'State'" formControlName="stateCode"></app-input>
+                    <app-select [label]="'State'" [options]="stateOptions" formControlName="stateCode"></app-select>
                 </div>
                 <app-textarea [title]="'Address'" [label]="'Address'" [placeholder]="'Address'" formControlName="address"></app-textarea>
             </div>

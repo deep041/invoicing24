@@ -9,14 +9,19 @@ import { Router } from '@angular/router';
     templateUrl: './web-site.component.html',
     styleUrl: './web-site.component.scss'
 })
-
 export class WebSiteComponent {
 
-    isMenuOpen: boolean = false;
+    isMenuOpen = false;
 
     constructor(private router: Router) {}
 
-    redirect(url: string) {
+    redirect(url: string): void {
+        this.isMenuOpen = false;
         this.router.navigate([url]);
+    }
+
+    scrollToSection(sectionId: string): void {
+        this.isMenuOpen = false;
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }

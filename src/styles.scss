@@ -60,7 +60,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Shared page layout */
 .invoice-container,
 .items-container,
-.customers-container {
+.customers-container,
+.improvements-container {
   .title-row {
     display: flex;
     justify-content: space-between;
@@ -77,6 +78,19 @@ h1, h2, h3, h4, h5, h6 {
       font-weight: 600;
       color: var(--text-color);
     }
+  }
+
+  .list-toolbar {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .list-filter {
+    width: 160px;
+    flex-shrink: 0;
   }
 }
 
@@ -98,6 +112,58 @@ h1, h2, h3, h4, h5, h6 {
         width: 100%;
       }
     }
+
+    .list-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .list-filter {
+      width: 100%;
+    }
+  }
+}
+
+/* Picker dialogs (select customer / select items) */
+.picker-dialog-panel {
+  max-height: 90vh;
+
+  .mat-mdc-dialog-container,
+  .mat-mdc-dialog-surface {
+    max-height: 90vh;
+    overflow: hidden;
+  }
+
+  .mat-mdc-dialog-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .mat-mdc-dialog-surface {
+    display: flex;
+    flex-direction: column;
+  }
+
+  app-select-customer,
+  app-select-items {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 90vh;
+    overflow: hidden;
+  }
+
+  .mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+
+  .mat-mdc-dialog-actions {
+    flex-shrink: 0;
   }
 }
 

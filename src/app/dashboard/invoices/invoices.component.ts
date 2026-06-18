@@ -7,10 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoicePreviewComponent } from '../../common/components/invoice-preview/invoice-preview.component';
 import { PaginationComponent } from '../../common/widgets/pagination/pagination.component';
 import { PaginationMeta } from '../../common/interfaces/pagination.interface';
+import { SearchFieldComponent } from '../../common/widgets/search-field/search-field.component';
 
 @Component({
     selector: 'app-invoices',
-    imports: [TableComponent, ButtonComponent, AuthenticationRoutingModule, PaginationComponent],
+    imports: [TableComponent, ButtonComponent, AuthenticationRoutingModule, PaginationComponent, SearchFieldComponent],
     templateUrl: './invoices.component.html',
     styleUrl: './invoices.component.scss'
 })
@@ -22,6 +23,7 @@ export class InvoicesComponent implements OnInit {
     pageIndex = 0;
     pageSize = 10;
     totalItems = 0;
+    searchQuery = '';
 
     constructor(private apiService: ApiService, private dialog: MatDialog) {}
 
@@ -30,12 +32,17 @@ export class InvoicesComponent implements OnInit {
     }
 
     getInvoices(page = 1, limit = this.pageSize) {
-        this.apiService.getInvoices({ page, limit }).subscribe((res: any) => {
+        this.apiService.getInvoices({ page, limit, search: this.searchQuery }).subscribe((res: any) => {
             if (res && res.success) {
                 this.invoices = res.data.items;
                 this.applyPagination(res.data.pagination);
             }
         });
+    }
+
+    onSearchChange(search: string) {
+        this.searchQuery = search;
+        this.getInvoices(1, this.pageSize);
     }
 
     onPageChange(event: { page: number; limit: number }) {
@@ -59,6 +66,12 @@ export class InvoicesComponent implements OnInit {
                     items: invoiceDetails.items,
                     invoiceTotal: invoiceDetails.total,
                     invoiceDiscountAmount: invoiceDetails.totalDiscountAmount,
+                    taxableAmount: invoiceDetails.taxableAmount,
+                    cgstAmount: invoiceDetails.cgstAmount,
+                    sgstAmount: invoiceDetails.sgstAmount,
+                    igstAmount: invoiceDetails.igstAmount,
+                    totalGstAmount: invoiceDetails.totalGstAmount,
+                    isInterState: invoiceDetails.isInterState,
                     grandTotal: invoiceDetails.grandTotal,
                     invoiceNumber: invoiceDetails.invoiceNumber
                 };
