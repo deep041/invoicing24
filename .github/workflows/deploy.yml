@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular App
-        run: npm run build
+        run: ng build --configuration production --base-href=/invoicing24/
 
       - name: Deploy to VPS
         uses: appleboy/scp-action@v0.1.7
