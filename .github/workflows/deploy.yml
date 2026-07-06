@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/invoicing/browser/**"
-          target: "/var/www/invoicing24"
+          target: "/var/www/html"
           strip_components: 3
 
       - name: Reload Nginx
